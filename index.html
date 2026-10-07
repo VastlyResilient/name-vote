@@ -111,7 +111,7 @@ a{color:#93c5fd}
 </div>
 <script>
 const votes={};
-document.getElementById('previewChips').innerHTML=NAMES.map(x=>`<span style="font-size:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;padding:3px 11px">${x.n}</span>`).join('');
+try{document.getElementById('previewChips').innerHTML=NAMES.map(x=>`<span style="font-size:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;padding:3px 11px">${x.n}</span>`).join('');}catch(e){console.error(e)}
 let voter=localStorage.getItem('nv_name');
 if(voter) showApp();
 function enter(){
