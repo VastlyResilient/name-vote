@@ -38,6 +38,10 @@ input:focus{outline:none;border-color:rgba(255,255,255,.6)}
 .good{background:rgba(59,130,246,.18);color:#60a5fa}
 .fair{background:rgba(245,158,11,.16);color:#fbbf24}
 .weak{background:rgba(239,68,68,.18);color:#f87171}
+.spk{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);cursor:pointer;transition:transform .12s,background .2s;vertical-align:middle;margin-left:8px}
+.spk:hover{transform:scale(1.08);background:rgba(255,255,255,.16)}
+.spk svg{width:15px;height:15px}
+.spk.playing{color:#fbbf24;border-color:#fbbf24}
 .stars button{font-size:24px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.22);transition:transform .1s,color .1s;padding:2px}
 .stars button:hover{transform:scale(1.15)}
 .stars button.on{color:#fbbf24}
@@ -111,6 +115,16 @@ a{color:#93c5fd}
 </div>
 <script>
 const votes={};
+let curAudio=null,curBtn=null;
+function speak(btn,e){
+  e.stopPropagation();
+  if(curAudio){curAudio.pause();curAudio=null;if(curBtn)curBtn.classList.remove('playing');
+    if(curBtn===btn){curBtn=null;return}}
+  curBtn=btn;btn.classList.add('playing');
+  curAudio=new Audio(btn.dataset.audio);curAudio.volume=0.9;
+  curAudio.onended=()=>{btn.classList.remove('playing');curAudio=null;curBtn=null};
+  curAudio.play();
+}
 try{document.getElementById('previewChips').innerHTML=NAMES.map(x=>`<span style="font-size:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;padding:3px 11px">${x.n}</span>`).join('');}catch(e){console.error(e)}
 let voter=localStorage.getItem('nv_name');
 if(voter) showApp();
@@ -132,7 +146,7 @@ function render(){
     c.style.padding='20px 22px';c.style.animation=`fadeSlideUp .8s ease ${.15*i+0.2}s both`;
     const collWarn=/clean|minor/i.test(x.collision)?'':'color:#fbbf24';
     c.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start">
-      <h3 style="font-size:19px;font-weight:600">${x.n}<span class="muted" style="font-weight:400;font-size:12px;font-family:ui-monospace,Menlo,monospace;margin-left:8px">${x.say}</span></h3>
+      <h3 style="font-size:19px;font-weight:600">${x.n}<button class="spk" data-audio="audio/${x.id}.mp3" title="Hear it in a sentence" onclick="speak(this,event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></button><span class="muted" style="font-weight:400;font-size:12px;font-family:ui-monospace,Menlo,monospace;margin-left:8px">${x.say}</span></h3>
       <span class="badge" style="margin:0;font-size:10.5px;padding:2px 10px">${x.cat}</span></div>
       <div style="font-size:13.5px;color:rgba(255,255,255,.8);margin:10px 0 4px;line-height:1.5">${x.mean}</div>
       <div style="font-size:12.5px;color:rgba(255,255,255,.5);font-style:italic">${x.promise}</div>
