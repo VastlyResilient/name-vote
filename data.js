@@ -9,6 +9,7 @@ const NAMES=[
 "test": "Strong",
 "collision": "Clean",
 "pitch": "Promptus — the team that's ready the moment you ask.",
+"challenge": "An investor asks: is 'prompt' a category, or a feature of ChatGPT that disappears in two years? Which side of that bet are you on?",
 "risks": "May hear 'prompt us' — reads as AI-prompt tooling, which could date fast or box you into one feature.",
 "dom": {
 "com": "taken",
@@ -35,6 +36,7 @@ const NAMES=[
 "test": "Strong",
 "collision": "Several",
 "pitch": "Valor — we build the AI workforce that runs your business.",
+"challenge": "You're pitching a Fortune 500 CIO. Does 'Valor' read as courage \u2014 or as the video game their teenager plays? Be honest about which image arrives first.",
 "risks": "Strong military/valor-ant associations (incl. the game Valorant); several existing companies named Valor.",
 "dom": {
 "com": "taken",
@@ -61,6 +63,7 @@ const NAMES=[
 "test": "Strong",
 "collision": "Fire alarms",
 "pitch": "Simplex — complex work, made one-fold.",
+"challenge": "A customer types the name into Google and the first page is a medical result. Do you spend years and money winning that search back, or does that fight kill the name for you?",
 "risks": "Herpes simplex is the elephant in the room; also a fire-alarm brand and a math term (simplex algorithm).",
 "dom": {
 "com": "taken",
@@ -87,6 +90,7 @@ const NAMES=[
 "test": "Good",
 "collision": "Several",
 "pitch": "Forma — we give shape to what your business could be.",
+"challenge": "A client hears 'Forma' once, at lunch. Tomorrow, do they remember it \u2014 or does it blur into every other soft, design-y name they've heard this year?",
 "risks": "Several small companies; 'forma' is a common word in skincare/fitness brands. Can feel abstract.",
 "dom": {
 "com": "taken",
@@ -113,6 +117,7 @@ const NAMES=[
 "test": "Good",
 "collision": "Minor",
 "pitch": "Utilis — useful, and nothing but.",
+"challenge": "Say 'we're a Utilis shop' out loud. Would a customer pay a premium for a company named after plain usefulness \u2014 or does the name set the price ceiling before you've spoken?",
 "risks": "Sounds like 'utility' — reads as infrastructure, not a colleague. Hard to love; 'a Utilis shop' is awkward.",
 "dom": {
 "com": "taken",
@@ -139,6 +144,7 @@ const NAMES=[
 "test": "Strong",
 "collision": "Beam Therapeutics",
 "pitch": "Beam — the support under your business and the light ahead of it.",
+"challenge": "Beam Therapeutics has raised hundreds of millions and owns the tech-news cycle for this word. Is the name strong enough that you'll be the *other* Beam people mean \u2014 and is that fight worth it?",
 "risks": "Beam Therapeutics is a well-funded biotech; also 'Beam' dental, Beam (crypto). Crowded but in other lanes.",
 "dom": {
 "com": "taken",
@@ -165,6 +171,7 @@ const NAMES=[
 "test": "Strong",
 "collision": "Harness.io",
 "pitch": "Harness — we put AI to work pulling for you.",
+"challenge": "Harness.io is already a $3B+ dev-tools company. When a customer Googles you, they find them. Do you take on an incumbent on their own word, or walk away?",
 "risks": "Harness.io is a large dev-tools company in adjacent tech — real collision. Also literal gear connotation.",
 "dom": {
 "com": "taken",
@@ -191,6 +198,7 @@ const NAMES=[
 "test": "Good",
 "collision": "Several small",
 "pitch": "Aster — growth, pointed at the stars.",
+"challenge": "An investor reads the deck cover and sees it start with 'ass-'. A customer hears it and thinks 'asterisk \u2014 the footnote.' Is the poetry worth the first-impression tax?",
 "risks": "Starts with 'ass-' in writing; may hear 'asterisk'. Several small collisions.",
 "dom": {
 "com": "taken",
@@ -217,6 +225,7 @@ const NAMES=[
 "test": "Weak",
 "collision": "Generic",
 "pitch": "Oversight — nothing slips past your business again.",
+"challenge": "You're a client. The sales rep says 'we hired Oversight to handle it' \u2014 and the room chuckles, because an oversight is the thing you missed. Can a name survive its own punchline?",
 "risks": "Double meaning is the problem: an oversight is literally a mistake. 'We hired Oversight' invites the joke.",
 "dom": {
 "com": "taken",
@@ -243,6 +252,7 @@ const NAMES=[
 "test": "Good",
 "collision": "Minor",
 "pitch": "Starwell — guidance from above, depth from below.",
+"challenge": "A customer hears it once on a call. Can they spell it into Google without asking \u2014 or do they type 'Stairwell' and find a building-code website instead of you?",
 "risks": "Coined compound — needs explaining once. May hear 'Stairwell' or 'StarWell' pharma.",
 "dom": {
 "com": "avail",
@@ -269,6 +279,7 @@ const NAMES=[
 "test": "Fair",
 "collision": "Clean",
 "pitch": "Optitude — the aptitude to optimize everything.",
+"challenge": "It's 2028. A recruit sees 'Optitude' on your offer letter. Does it read as capability \u2014 or as a 2010s startup name like Optimizely that's already dated?",
 "risks": "Blend reads as marketing-speak; '-itude' suffix feels dated (cf. 'turntitude'). May hear 'opti-tood'.",
 "dom": {
 "com": "avail",
@@ -295,6 +306,7 @@ const NAMES=[
 "test": "Fair",
 "collision": "Clean",
 "pitch": "Servolution — service that evolves with you.",
+"challenge": "A customer hears 'ser-vo-LOO-shun' at a conference and tries to find you later. Four syllables, three blends \u2014 how many spellings do they try before they give up?",
 "risks": "Four syllables, three blends — nobody will spell it from hearing it. Church movement already uses it.",
 "dom": {
 "com": "taken",
