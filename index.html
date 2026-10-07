@@ -5,140 +5,223 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%}
-body{font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:#000;color:#fff}
+body{font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased;background:#000;color:#fff;min-height:100vh}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.a2{animation:fadeSlideUp .8s ease .2s both}.a4{animation:fadeSlideUp .8s ease .4s both}
-.a5{animation:fadeSlideUp .8s ease .55s both}
-.a6{animation:fadeSlideUp .8s ease .7s both}.a8{animation:fadeSlideUp .8s ease .9s both}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes bulbGlow{0%,100%{filter:drop-shadow(0 0 3px rgba(251,191,36,.5))}50%{filter:drop-shadow(0 0 9px rgba(251,191,36,.9))}}
+.a2{animation:fadeSlideUp .8s ease .2s both}.a4{animation:fadeSlideUp .8s ease .4s both}.a5{animation:fadeSlideUp .8s ease .55s both}
 .vbg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center}
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.55)}
 nav{position:relative;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:20px 24px}
 @media(min-width:768px){nav{padding:20px 48px}}
-.logo{font-size:18px;font-weight:600;letter-spacing:-.02em;color:#fff}
-@media(min-width:640px){.logo{font-size:20px}}
+.logo{font-size:18px;font-weight:600;letter-spacing:-.02em}
 .navlinks{display:none;gap:28px;margin-left:40px}
 @media(min-width:768px){.navlinks{display:flex}}
-.navlinks a{font-size:14px;color:rgba(255,255,255,.8);text-decoration:none;transition:color .2s}
+.navlinks a{font-size:14px;color:rgba(255,255,255,.8);text-decoration:none}
 .navlinks a:hover{color:#fff}
-.btn-w{display:inline-flex;align-items:center;gap:8px;border-radius:10px;background:#fff;padding:10px 22px;font-size:14px;font-weight:500;color:#000;border:none;cursor:pointer;transition:transform .2s;text-decoration:none;font-family:'Geist',sans-serif}
+.btn-w{display:inline-flex;align-items:center;gap:8px;border-radius:10px;background:#fff;padding:10px 22px;font-size:14px;font-weight:500;color:#000;border:none;cursor:pointer;transition:transform .2s;font-family:'Geist',sans-serif}
 .btn-w:hover{transform:scale(1.05)}
 .btn-w:disabled{opacity:.4;cursor:default;transform:none}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:10px 22px;font-size:14px;font-weight:500;color:#fff;cursor:pointer;font-family:'Geist',sans-serif}
+.btn-ghost:hover{background:rgba(255,255,255,.16)}
+.btn-ghost:disabled{opacity:.35;cursor:default}
 .badge{display:inline-block;font-size:12px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:5px 14px;margin-bottom:18px}
-@media(min-width:640px){.badge{font-size:13.5px}}
 h1{font-size:32px;font-weight:500;line-height:1.1;letter-spacing:-.03em}
 @media(min-width:640px){h1{font-size:48px}}
-@media(min-width:768px){h1{font-size:56px}}
 .muted{color:rgba(255,255,255,.6)}
-input,textarea{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px}
-input::placeholder,textarea::placeholder{color:rgba(255,255,255,.4)}
-input:focus,textarea:focus{outline:none;border-color:rgba(255,255,255,.6)}
-textarea{min-height:88px;resize:vertical}
+input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px}
+input::placeholder{color:rgba(255,255,255,.4)}
+input:focus{outline:none;border-color:rgba(255,255,255,.6)}
 .card{background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.14);border-radius:16px;backdrop-filter:blur(24px) saturate(1.1);-webkit-backdrop-filter:blur(24px) saturate(1.1)}
 .pill{display:inline-block;font-size:11px;font-weight:500;border-radius:99px;padding:2.5px 10px}
-.strong{background:rgba(16,185,129,.18);color:#34d399}
-.good{background:rgba(59,130,246,.18);color:#60a5fa}
-.fair{background:rgba(245,158,11,.16);color:#fbbf24}
-.weak{background:rgba(239,68,68,.18);color:#f87171}
-.spk{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);cursor:pointer;transition:transform .12s,background .2s;vertical-align:middle;margin-left:8px}
-.spk:hover{transform:scale(1.08);background:rgba(255,255,255,.16)}
-.spk svg{width:15px;height:15px}
-.spk.playing{color:#fbbf24;border-color:#fbbf24}
-.stars button{font-size:24px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.22);transition:transform .1s,color .1s;padding:2px}
-.stars button:hover{transform:scale(1.15)}
+.strong{background:rgba(16,185,129,.18);color:#34d399}.good{background:rgba(59,130,246,.18);color:#60a5fa}
+.fair{background:rgba(245,158,11,.16);color:#fbbf24}.weak{background:rgba(239,68,68,.18);color:#f87171}
+.stars{display:flex;gap:6px}
+.stars button{font-size:30px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.22);transition:transform .1s,color .1s,text-shadow .15s;padding:2px}
+.stars button:hover{transform:scale(1.12)}
 .stars button.on{color:#fbbf24}
 .stars button.hov{color:rgba(251,191,36,.6)}
-.mono{font-family:ui-monospace,Menlo,monospace;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:2px 8px;font-size:12px}
-a{color:#93c5fd}
-/* per-card labeled sections */
-.lbl{font-size:10px;text-transform:uppercase;letter-spacing:.9px;color:rgba(255,255,255,.4);margin-bottom:5px}
-.sec{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
-.sent{background:rgba(255,255,255,.045);border-radius:10px;padding:10px 13px;font-size:12.5px;line-height:1.95;color:rgba(255,255,255,.7)}
-.dot{display:inline-block;width:8px;height:8px;border-radius:99px;margin-right:5px;vertical-align:1px}
-.dot.avail{background:#34d399}.dot.taken{background:#f87171}.dot.parked{background:#fbbf24}
-.wm-g{font-size:21px;font-weight:600;letter-spacing:-.01em}
-.wm-r{font-family:ui-monospace,Menlo,monospace;font-size:14px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.75)}
-details.risks summary{cursor:pointer;list-style:none;font-size:12px;color:rgba(251,191,36,.85)}
-details.risks summary::before{content:'▸ ';font-size:10px}
-details.risks[open] summary::before{content:'▾ '}
-.risks div{font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.6;padding-top:6px}
-/* ranking */
-.rankrow{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);margin-bottom:8px;cursor:grab;user-select:none}
-.rankrow.dragging{opacity:.4}
-.ranknum{font-weight:600;color:rgba(255,255,255,.4);width:26px}
+.stars.five button.on{color:#ffd54a;text-shadow:0 0 10px rgba(251,191,36,.9),0 0 22px rgba(251,191,36,.45)}
+.spk,.bulb{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);cursor:pointer;transition:transform .12s,background .2s;vertical-align:middle}
+.spk:hover,.bulb:hover{transform:scale(1.08);background:rgba(255,255,255,.16)}
+.spk svg,.bulb svg{width:16px;height:16px}
+.spk.playing{color:#fbbf24;border-color:#fbbf24}
+.bulb{color:#fbbf24;animation:bulbGlow 3s ease-in-out infinite}
+/* overlay pop-up */
+.overlay{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:fadeSlideUp .25s ease both}
+.pop{width:100%;max-width:520px;max-height:82vh;overflow-y:auto;padding:28px;position:relative;animation:cardIn .3s ease both}
+.pop h3{font-size:22px;font-weight:600;margin-bottom:2px}
+.pop .closeX{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.pop .closeX:hover{background:rgba(255,255,255,.16)}
+.crit{list-style:none;margin-top:16px}
+.crit li{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.85)}
+.crit li:last-child{border-bottom:none}
+.crit .num{flex:0 0 22px;height:22px;border-radius:6px;background:rgba(251,191,36,.14);color:#fbbf24;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.crit .t{font-weight:600;color:#fff;display:block;font-size:11px;text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px}
+/* stepper */
+.dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:18px 0}
+.dots span{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.18);transition:background .2s,transform .2s}
+.dots span.done{background:rgba(251,191,36,.5)}
+.dots span.cur{background:#fbbf24;transform:scale(1.35)}
+.navRow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px}
+.stepCard{display:none}
+.stepCard.show{display:block;animation:cardIn .45s ease both}
+.sec{margin-top:16px}
+.lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.45);margin-bottom:6px}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:rgba(255,255,255,.75)}
+footer{text-align:center;font-size:12px;color:rgba(255,255,255,.35);margin-top:32px}
 </style></head><body>
 <script src="data.js?v=5"></script>
 <video class="vbg" autoplay muted loop playsinline src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_204221_5339e40b-e73d-4ab0-9c65-79c18c66fd50.mp4"></video>
 <div class="scrim"></div>
 <nav>
   <div style="display:flex;align-items:center"><span class="logo">Name&nbsp;Vote</span>
-    <div class="navlinks"><a href="index.html">Vote</a></div>
-  </div>
-  <a class="btn-w" href="admin.html">Admin</a>
+    <div class="navlinks"><a href="index.html">Vote</a></div></div>
+  <a class="btn-w" href="admin.html" style="text-decoration:none">Admin</a>
 </nav>
+<div style="position:relative;z-index:10;max-width:640px;margin:0 auto;padding:20px 20px 80px">
 
-<div style="position:relative;z-index:10;max-width:1060px;margin:0 auto;padding:24px 24px 120px">
   <!-- gate -->
-  <div id="gate" style="max-width:420px;margin:60px auto" class="card a4">
-    <div style="padding:34px">
-      <span class="badge">Twelve candidates · one winner</span>
+  <div id="gate" class="card a4" style="max-width:420px;margin:40px auto">
+    <div style="padding:32px">
+      <span class="badge">SEOLUTION rebrand · twelve candidates</span>
       <h2 style="font-size:24px;font-weight:500;margin-bottom:10px">Cast your vote</h2>
-      <p class="muted" style="font-size:14px;margin-bottom:22px">Enter your name to vote. Ratings are logged under your name — one ballot per person, re-voting updates it.</p>
-      <div style="margin-bottom:18px"><p class="muted" style="font-size:12px;margin-bottom:8px">You'll be rating all 12 names:</p>
-      <div style="display:flex;flex-wrap:wrap;gap:6px" id="previewChips"></div></div>
+      <p class="muted" style="font-size:14px;margin-bottom:22px">Enter your name to vote. One ballot per person — re-voting updates it.</p>
       <input id="vname" type="text" placeholder="Your name" autocomplete="name" onkeydown="if(event.key==='Enter')enter()">
       <button class="btn-w" style="width:100%;justify-content:center" onclick="enter()">Start voting →</button>
     </div>
   </div>
-  <!-- app -->
+
+  <!-- step 0: how to vote -->
   <div id="app" style="display:none">
-    <div style="max-width:720px;margin-bottom:36px">
-      <span class="badge a2">Company Name Shortlist</span>
-      <h1 class="a4">Pick the name<br>worth building on.</h1>
-      <div class="a6 card" style="padding:20px 24px;margin-top:26px">
-        <strong style="font-size:14px">How to vote</strong>
-        <ol style="margin:10px 0 10px 20px;font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.8">
-          <li><b style="color:#fff">Consider the score</b> — each card shows a pre-scored rating (Strong → Weak) from the sentence test. Weigh it before you rate.</li>
-          <li><b style="color:#fff">Rate 1–5 stars</b> (5 = best). Skip names you have no opinion on.</li>
-          <li><b style="color:#fff">At the end</b> — drag your top five into order, then answer one veto question.</li>
-        </ol>
-        <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.55);line-height:2">
-          <span class="pill strong">Strong</span> passes the test ·
-          <span class="pill good">Good</span> mostly passes ·
-          <span class="pill fair">Fair</span> mixed ·
-          <span class="pill weak">Weak</span> fails ·
-          <span class="dot avail" style="margin-left:8px"></span>available <span class="dot taken" style="margin-left:10px"></span>taken ·
-          <span style="color:#fbbf24">amber collision</span> = existing company
-        </div>
-      </div>
-    </div>
-    <p class="muted a8" style="font-size:14px;margin-bottom:20px">Voting as <b id="who" style="color:#fff"></b> · cards shuffled per voter · <a href="#" onclick="localStorage.removeItem('nv_name');location.reload();return false">switch name</a></p>
-    <div id="grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px"></div>
-
-    <!-- final section -->
-    <div id="final" class="card" style="margin-top:32px;padding:24px 26px">
-      <h3 style="font-size:17px;font-weight:500;margin-bottom:6px">Before you submit</h3>
-      <p class="muted" style="font-size:13px;margin-bottom:16px">People rate generously but rank honestly — drag your top five into order. <b style="color:#fff">#1 is the name you'd sign the LLC paperwork for.</b></p>
-      <div id="rankList" style="max-width:520px"></div>
-      <div class="sec" style="margin-top:20px">
-        <div class="lbl">One question — required</div>
-        <p style="font-size:14px;margin-bottom:10px">Which name would you be <b>embarrassed to say out loud to a client</b>, and why?</p>
-        <textarea id="veto" placeholder="e.g. Simplex — I can't say it without thinking of herpes."></textarea>
-      </div>
-    </div>
-
-    <div id="submitBar" style="position:sticky;bottom:16px;margin-top:32px;display:flex;align-items:center;gap:18px;justify-content:space-between" class="card">
-      <span id="count" class="muted" style="font-size:14px;padding-left:20px"></span>
-      <button class="btn-w" id="submitBtn" style="margin:12px" onclick="submitVotes()">Submit my votes</button>
-    </div>
-    <div id="done" style="display:none;text-align:center;padding:80px 20px">
-      <h2 style="font-size:28px;font-weight:500;margin-bottom:10px">✅ Votes submitted</h2>
-      <p class="muted">Thanks! Your ratings were recorded. Results stay blind until voting closes.</p>
+  <div id="step-howto" class="stepCard">
+    <span class="badge a2">Company Name Shortlist</span>
+    <h1 class="a4">Pick the name<br>worth building on.</h1>
+    <p class="a5" style="font-size:15px;line-height:1.7;color:rgba(255,255,255,.75);margin-top:16px">
+      We're rebranding <b style="color:#fff">SEOLUTION</b> to something more universal — the future of AI isn't just SEO,
+      it's <b style="color:#fff">automation engineering</b>. This vote is blind: results stay hidden while voting is open,
+      so vote on what fits, not momentum.</p>
+    <div class="card" style="padding:22px 24px;margin-top:22px">
+      <strong style="font-size:14px">How to vote</strong>
+      <ol style="margin:10px 0 0 20px;font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.9">
+        <li><b style="color:#fff">One name per screen</b> — read it, hear it 🔊, tap the 💡 for the criteria breakdown.</li>
+        <li><b style="color:#fff">Consider the score</b> — weigh the pre-scored rating before you decide.</li>
+        <li><b style="color:#fff">Rate 1–5 stars</b> (5 = best). Skip with Next if you have no opinion.</li>
+        <li><b style="color:#fff">Submit at the end.</b> You can go back any time with Previous.</li>
+      </ol>
     </div>
   </div>
+  <div id="cards"></div>
+  <div class="dots" id="dots"></div>
+  <div class="navRow">
+    <button class="btn-ghost" id="prevBtn" onclick="go(-1)">← Previous</button>
+    <span class="muted" id="pos" style="font-size:13px"></span>
+    <button class="btn-w" id="nextBtn" onclick="go(1)">Next →</button>
+  </div>
+  <div id="submitWrap" style="display:none;margin-top:28px" class="card">
+    <div style="padding:26px">
+      <h3 style="font-size:20px;font-weight:600;margin-bottom:6px">Ready to submit?</h3>
+      <p class="muted" style="font-size:13.5px;margin-bottom:18px" id="sumLine"></p>
+      <button class="btn-w" style="width:100%;justify-content:center" id="submitBtn" onclick="submitVotes()">Submit my votes</button>
+    </div>
+  </div>
+  <div id="done" style="display:none;text-align:center;padding:80px 20px">
+    <h2 style="font-size:26px;font-weight:500;margin-bottom:10px">✅ Votes submitted</h2>
+    <p class="muted">Thanks! Your ratings were recorded.</p>
+  </div>
+  <footer>Blind vote · results revealed when voting closes</footer>
+  </div>
+</div>
+<div id="overlay" class="overlay" style="display:none" onclick="if(event.target===this)closePop()">
+  <div class="card pop" id="pop"></div>
 </div>
 <script>
 const votes={};
-let rankOrder=[], voter=null, order=[];
+let voter=localStorage.getItem('nv_name');
+let cur=0, order=[];
+if(voter) showApp();
+function enter(){const v=document.getElementById('vname').value.trim();if(!v)return document.getElementById('vname').focus();
+ localStorage.setItem('nv_name',v);voter=v;showApp();}
+function showApp(){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('app').style.display='block';
+  order=[...NAMES.keys()];
+  buildCards(); buildDots(); showStep(0);
+}
+const BULB='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>';
+const SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+const TITLES=["Real word, not invented","Two syllables, one stress","Meaning above the product","Clean visual word","Portable across products","The colleague test"];
+function buildCards(){
+  const w=document.getElementById('cards');
+  w.innerHTML=order.map((oi)=>{
+    const x=NAMES[oi];
+    return `<div class="stepCard card" id="card-${oi}" style="padding:26px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <h3 style="font-size:26px;font-weight:600">${x.n}
+        <button class="spk" data-audio="audio/${x.id}.mp3" title="Hear it in a sentence" onclick="speak(this,event)">${SPK}</button>
+        <button class="bulb" title="Why this name could win" onclick="openPop(${oi})">${BULB}</button>
+      </h3>
+      <span class="badge" style="margin:0">${x.cat}</span>
+    </div>
+    <div class="mono" style="margin-top:2px">${x.say}</div>
+    <div class="sec"><div class="lbl">Pitch</div>
+      <div style="font-size:14.5px;color:rgba(255,255,255,.9);line-height:1.55">${x.pitch}</div></div>
+    <div class="sec"><div class="lbl">Meaning · promise</div>
+      <div style="font-size:13.5px;color:rgba(255,255,255,.8)">${x.mean}</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.5);font-style:italic;margin-top:2px">${x.promise}</div></div>
+    <div class="sec"><div class="lbl">Pre-scored rating</div>
+      <span class="pill ${x.test.toLowerCase()}">${x.test}</span>
+      <span style="font-size:12px;color:rgba(255,255,255,.45);margin-left:8px">Collision: ${x.collision}</span></div>
+    <div class="sec"><div class="lbl">Your score</div>
+      <div class="stars" data-id="${x.id}">${[1,2,3,4,5].map(i=>`<button data-v="${i}" title="${i} star${i>1?'s':''}">★</button>`).join('')}</div></div>
+  </div>`;}).join('');
+  w.querySelectorAll('.stars button').forEach(b=>{
+    b.onclick=()=>{const s=b.parentElement;const id=s.dataset.id;const v=+b.dataset.v;
+      if(votes[id]===v){delete votes[id];s.querySelectorAll('button').forEach(z=>z.classList.remove('on'));s.classList.remove('five');}
+      else{votes[id]=v;s.querySelectorAll('button').forEach(z=>z.classList.toggle('on',+z.dataset.v<=v));s.classList.toggle('five',v===5);}
+      syncNav();};
+    b.onmouseenter=()=>{b.parentElement.querySelectorAll('button').forEach(z=>z.classList.toggle('hov',+z.dataset.v<=+b.dataset.v));};
+    b.onmouseleave=()=>{b.parentElement.querySelectorAll('button').forEach(z=>z.classList.remove('hov'));};
+  });
+}
+function buildDots(){
+  const d=document.getElementById('dots');
+  d.innerHTML=Array.from({length:order.length+1},()=>'<span></span>').join('');
+}
+function showStep(i){
+  cur=Math.max(0,Math.min(order.length,i));
+  document.getElementById('step-howto').classList.toggle('show',cur===0);
+  order.forEach((oi,idx)=>document.getElementById('card-'+oi).classList.toggle('show',idx===cur-1));
+  const dots=document.getElementById('dots').children;
+  [...dots].forEach((s,idx)=>{s.className=idx===cur?'cur':(idx<cur?'done':'');});
+  syncNav();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function syncNav(){
+  document.getElementById('prevBtn').disabled=cur===0;
+  const last=cur===order.length;
+  document.getElementById('nextBtn').textContent=last?'Review →':'Next →';
+  document.getElementById('pos').textContent=cur===0?'How to vote':(last?'Review':`Name ${cur} of ${order.length}`);
+  document.getElementById('submitWrap').style.display=last?'block':'none';
+  const n=Object.keys(votes).length;
+  document.getElementById('sumLine').textContent=`You rated ${n} of ${NAMES.length} names. Unrated names count as no opinion.`;
+  document.getElementById('submitBtn').disabled=n===0;
+}
+function go(d){
+  if(cur+d>order.length){return}
+  showStep(cur+d);
+}
+function openPop(oi){
+  const x=NAMES[oi];
+  document.getElementById('pop').innerHTML=
+   `<button class="closeX" onclick="closePop()">✕</button>
+    <span class="badge" style="margin-bottom:8px">Why it could win</span>
+    <h3>${x.n}</h3><div class="mono">${x.say}</div>
+    <ul class="crit">${x.crit.map((c,i)=>`<li><span class="num">${i+1}</span><span><span class="t">${TITLES[i]}</span>${c}</span></li>`).join('')}</ul>`;
+  document.getElementById('overlay').style.display='flex';
+}
+function closePop(){document.getElementById('overlay').style.display='none';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePop();});
 let curAudio=null,curBtn=null;
 function speak(btn,e){
   e.stopPropagation();
@@ -149,109 +232,16 @@ function speak(btn,e){
   curAudio.onended=()=>{btn.classList.remove('playing');curAudio=null;curBtn=null};
   curAudio.play();
 }
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-try{document.getElementById('previewChips').innerHTML=NAMES.map(x=>`<span style="font-size:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;padding:3px 11px">${x.n}</span>`).join('');}catch(e){console.error(e)}
-voter=localStorage.getItem('nv_name');
-order=shuffle(NAMES.map(x=>x.id));
-if(voter) showApp();
-function enter(){
-  const v=document.getElementById('vname').value.trim();
-  if(!v){document.getElementById('vname').focus();return}
-  localStorage.setItem('nv_name',v); voter=v; showApp();
-}
-function showApp(){
-  document.getElementById('gate').style.display='none';
-  document.getElementById('app').style.display='block';
-  document.getElementById('who').textContent=voter;
-  render();
-}
-function render(){
-  const g=document.getElementById('grid');g.innerHTML='';
-  order.forEach((id,i)=>{
-    const x=NAMES.find(n=>n.id===id);
-    const c=document.createElement('div');c.className='card';
-    c.style.padding='20px 22px';c.style.animation=`fadeSlideUp .8s ease ${.12*i+0.2}s both`;
-    const collWarn=/clean|minor/i.test(x.collision)?'':'color:#fbbf24';
-    c.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start">
-      <h3 style="font-size:19px;font-weight:600">${x.n}<button class="spk" data-audio="audio/${x.id}.mp3" title="Hear it in a sentence" onclick="speak(this,event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></button><span class="muted" style="font-weight:400;font-size:12px;font-family:ui-monospace,Menlo,monospace;margin-left:8px">${x.say}</span></h3>
-      <span class="badge" style="margin:0;font-size:10.5px;padding:2px 10px">${x.cat}</span></div>
-
-      <div style="margin-top:10px;display:flex;align-items:baseline;gap:16px">
-        <span class="wm-g">${x.n}</span><span class="wm-r">${x.n}</span>
-      </div>
-      <div style="font-style:italic;font-size:13px;color:rgba(255,255,255,.65);margin-top:8px">${x.pitch||x.promise}</div>
-
-      <div class="sec">
-        <div class="lbl">Say it in three sentences</div>
-        <div class="sent">"I run <b style="color:#fff">${x.n}</b>."<br>"We hired <b style="color:#fff">${x.n}</b>."<br>"Built by <b style="color:#fff">${x.n}</b>."</div>
-      </div>
-
-      <div class="sec">
-        <div class="lbl">What it means · what it promises</div>
-        <div style="font-size:13.5px;color:rgba(255,255,255,.8);line-height:1.5">${x.mean}</div>
-        <div style="font-size:12.5px;color:rgba(255,255,255,.5);font-style:italic;margin-top:3px">${x.promise}</div>
-        ${x.lineage&&x.lineage!=='—'?`<div style="font-size:11.5px;color:rgba(255,255,255,.45);margin-top:6px">Same pattern as: <span style="color:rgba(255,255,255,.75)">${x.lineage}</span></div>`:''}
-      </div>
-
-      <div class="sec">
-        <div class="lbl">Considered score</div>
-        <div class="stars" data-id="${x.id}" style="display:flex;gap:4px">${[1,2,3,4,5].map(i=>`<button data-v="${i}" title="${i} star${i>1?'s':''}">★</button>`).join('')}</div>
-      </div>`;
-    g.appendChild(c);
-  });
-  g.querySelectorAll('.stars button').forEach(b=>{
-    b.onclick=()=>{const s=b.parentElement;const id=s.dataset.id;const v=+b.dataset.v;
-      if(votes[id]===v){delete votes[id];s.querySelectorAll('button').forEach(x=>x.classList.remove('on'));}
-      else{votes[id]=v;s.querySelectorAll('button').forEach(x=>x.classList.toggle('on',+x.dataset.v<=v));}
-      syncRank(); updCount();};
-    b.onmouseenter=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.classList.toggle('hov',+x.dataset.v<=+b.dataset.v));};
-    b.onmouseleave=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('hov'));};
-  });
-
-  updCount();
-}
-function syncRank(){
-  // top 5 by stars, ties broken by gut (keep>maybe>pass)
-    rankOrder=Object.keys(votes).sort((a,b)=>votes[b]-votes[a]).slice(0,5);
-  renderRank();
-}
-function renderRank(){
-  const l=document.getElementById('rankList');l.innerHTML='';
-  if(!rankOrder.length){l.innerHTML='<p class="muted" style="font-size:13px">Rate some names above and your top five appears here.</p>';return}
-  rankOrder.forEach((id,i)=>{
-    const x=NAMES.find(n=>n.id===id);
-    const d=document.createElement('div');d.className='rankrow';d.draggable=true;d.dataset.id=id;
-    d.innerHTML=`<span class="ranknum">#${i+1}</span><span style="font-weight:600;font-size:16px">${x.n}</span><span class="muted" style="font-size:12px;margin-left:auto">${votes[id]?'★'+votes[id]:''}</span><span class="muted" style="cursor:grab">⠿</span>`;
-    d.ondragstart=e=>{d.classList.add('dragging');e.dataTransfer.setData('text',id)};
-    d.ondragend=()=>d.classList.remove('dragging');
-    d.ondragover=e=>{e.preventDefault();
-      const drag=l.querySelector('.dragging');if(drag&&drag!==d){
-        const r=d.getBoundingClientRect();
-        l.insertBefore(drag,(e.clientY-r.top)>r.height/2?d.nextSibling:d);}};
-    d.ondrop=e=>{e.preventDefault();
-      rankOrder=[...l.children].map(c=>c.dataset.id);
-      renderRank();};
-    l.appendChild(d);
-  });
-}
-function updCount(){
-  const n=Object.keys(votes).length;
-  document.getElementById('count').textContent=`${n} / ${NAMES.length} rated`;
-  document.getElementById('submitBtn').disabled=n===0;
-}
 async function submitVotes(){
-  const veto=document.getElementById('veto').value.trim();
-  if(!veto){document.getElementById('veto').focus();document.getElementById('veto').style.borderColor='#f87171';
-    document.getElementById('final').scrollIntoView({behavior:'smooth'});return}
   const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Submitting…';
   try{
     await fetch(API_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
-      body:JSON.stringify({voter:voter,votes:votes,rank:rankOrder,veto:veto,order:order,ts:new Date().toISOString()})});
-    document.getElementById('submitBar').style.display='none';
-    document.getElementById('grid').style.display='none';
-    document.getElementById('final').style.display='none';
+      body:JSON.stringify({voter:voter,votes:votes,ts:new Date().toISOString()})});
+    document.getElementById('cards').style.display='none';
+    document.getElementById('dots').style.display='none';
+    document.querySelector('.navRow').style.display='none';
+    document.getElementById('submitWrap').style.display='none';
     document.getElementById('done').style.display='block';
-    window.scrollTo(0,0);
   }catch(e){btn.disabled=false;btn.textContent='Submit my votes';alert('Submit failed — check connection and try again.');}
 }
 </script></body></html>
