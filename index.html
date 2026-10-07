@@ -216,8 +216,9 @@ function showStep(i){
 function syncNav(){
   document.getElementById('prevBtn').disabled=cur===0;
   const last=cur===order.length;
-  document.getElementById('nextBtn').textContent=last?'Review →':'Next →';
-  document.getElementById('pos').textContent=cur===0?'How to vote':(last?'Review':`Name ${cur} of ${order.length}`);
+  document.getElementById('nextBtn').textContent='Next →';
+  document.getElementById('nextBtn').style.visibility=last?'hidden':'visible';
+  document.getElementById('pos').textContent=cur===0?'How to vote':(last?'':`Name ${cur} of ${order.length}`);
   document.getElementById('submitWrap').style.display=last?'block':'none';
   const n=Object.keys(votes).length;
   document.getElementById('sumLine').textContent=`You rated ${n} of ${NAMES.length} names. Unrated names count as no opinion.`;
