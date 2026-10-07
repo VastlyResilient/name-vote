@@ -31,6 +31,12 @@ function doPost(e){
     if(!replaced) s.appendRow([d.ts||now, voter, name, rating]);
   }
 
+  // free-text feedback (appends; voter may send more than once)
+  if(d.feedback){
+    const f = sheet('feedback', ['ts','voter','feedback']);
+    f.appendRow([d.ts||now, voter, String(d.feedback)]);
+  }
+
   // ballot extras: gut calls, ranking, veto, card order (one row per voter, latest wins)
   if(d.guts || d.rank || d.veto){
     const b = sheet('ballots', ['ts','voter','guts','rank','veto','order']);

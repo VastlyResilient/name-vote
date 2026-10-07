@@ -8,7 +8,7 @@ html,body{height:100%}
 body{font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased;background:#000;color:#fff;min-height:100vh}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
-@keyframes bulbGlow{0%,100%{filter:drop-shadow(0 0 3px rgba(251,191,36,.5))}50%{filter:drop-shadow(0 0 9px rgba(251,191,36,.9))}}
+@keyframes bulbGlow{0%,100%{filter:drop-shadow(0 0 5px rgba(251,191,36,.85)) drop-shadow(0 0 12px rgba(251,191,36,.4))}50%{filter:drop-shadow(0 0 14px rgba(251,191,36,1)) drop-shadow(0 0 26px rgba(251,191,36,.7))}}
 .a2{animation:fadeSlideUp .8s ease .2s both}.a4{animation:fadeSlideUp .8s ease .4s both}.a5{animation:fadeSlideUp .8s ease .55s both}
 .vbg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center}
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.55)}
@@ -46,7 +46,7 @@ input:focus{outline:none;border-color:rgba(255,255,255,.6)}
 .spk:hover,.bulb:hover{transform:scale(1.08);background:rgba(255,255,255,.16)}
 .spk svg,.bulb svg{width:16px;height:16px}
 .spk.playing{color:#fbbf24;border-color:#fbbf24}
-@keyframes spkGlow{0%,100%{filter:drop-shadow(0 0 2px rgba(255,255,255,.25))}50%{filter:drop-shadow(0 0 7px rgba(255,255,255,.55))}}
+@keyframes spkGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(255,255,255,.5))}50%{filter:drop-shadow(0 0 11px rgba(255,255,255,.85)) drop-shadow(0 0 20px rgba(255,255,255,.35))}}
 .spk{animation:spkGlow 3s ease-in-out infinite}
 .bulb{color:#fbbf24;animation:bulbGlow 3s ease-in-out infinite}
 @keyframes arrowNudge{0%,100%{transform:translateY(0);color:rgba(251,191,36,.5)}50%{transform:translateY(3px);color:#fbbf24}}
@@ -147,9 +147,14 @@ footer{text-align:center;font-size:12px;color:rgba(255,255,255,.35);margin-top:3
       <p class="muted">Thanks! Your ratings were recorded. Here's your ballot:</p>
     </div>
     <div class="card" id="receipt" style="padding:26px 28px"></div>
-    <button class="btn-w" style="width:100%;justify-content:center;margin-top:18px" onclick="savePDF()">Save as PDF</button>
+    <p class="muted" style="font-size:12px;text-align:center;margin-top:10px">Tap a name to reopen its summary card.</p>
+    <div class="card" style="margin-top:22px;padding:24px 26px">
+      <div class="lbl">Anything we should consider?</div>
+      <p class="muted" style="font-size:13px;margin-bottom:10px;line-height:1.6">Feedback, hesitations, ideas — anything the scores don't capture.</p>
+      <textarea id="feedback" placeholder="e.g. Triolution sounds strong but I worry about spelling it over the phone…"></textarea>
+      <button class="btn-w" id="fbBtn" style="width:100%;justify-content:center" onclick="submitFeedback()">Send feedback</button>
+    </div>
   </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <footer>Blind vote · results revealed when voting closes</footer>
   </div>
 </div>
@@ -276,20 +281,28 @@ async function submitVotes(){
 function buildReceipt(){
   const rows=Object.entries(votes).sort((a,b)=>b[1]-a[1]).map(([id,v])=>{
     const x=NAMES.find(n=>n.id===id)||{n:id,say:''};
-    return `<div style="display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.08)">
+    const oi=NAMES.indexOf(x);
+    return `<div onclick="openPop(${oi})" style="display:flex;align-items:center;gap:14px;padding:11px 10px;margin:0 -10px;border-radius:10px;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background=''">
       <span style="font-weight:600;font-size:15px;width:130px">${x.n}</span>
       <span style="color:#fbbf24;font-size:15px;letter-spacing:2px">${'★'.repeat(v)}</span>
-      <span class="muted" style="font-size:12px;margin-left:auto">${v} / 5</span></div>`;}).join('');
+      <span class="muted" style="font-size:12px;margin-left:auto">${v} / 5</span>
+      <span class="muted" style="font-size:11px">▸</span></div>`;}).join('');
   document.getElementById('receipt').innerHTML=
    `<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.12)">
       <span style="font-weight:600;font-size:16px">${voter}</span>
       <span class="muted" style="font-size:12px">${new Date().toLocaleString()}</span></div>
     <div class="lbl" style="margin-bottom:4px">Your ratings (${Object.keys(votes).length} of ${NAMES.length})</div>${rows}`;
 }
-function savePDF(){
-  const el=document.getElementById('receipt');
-  html2pdf().set({margin:12,filename:'name-vote-'+voter.toLowerCase().replace(/\s+/g,'-')+'.pdf',
-    image:{type:'jpeg',quality:0.98},html2canvas:{backgroundColor:'#000',scale:2},
-    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(el).save();
+async function submitFeedback(){
+  const t=document.getElementById('feedback').value.trim();
+  const btn=document.getElementById('fbBtn');
+  if(!t){document.getElementById('feedback').focus();return}
+  btn.disabled=true;btn.textContent='Sending…';
+  try{
+    await fetch(API_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({voter:voter,feedback:t,ts:new Date().toISOString()})});
+    document.getElementById('feedback').value='';
+    btn.textContent='✓ Sent — thank you';
+  }catch(e){btn.disabled=false;btn.textContent='Send feedback';alert('Send failed — check connection and try again.');}
 }
 </script></body></html>
