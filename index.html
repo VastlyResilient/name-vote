@@ -1,89 +1,110 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Name Vote — Company Name Shortlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;color:#1a1a1a;background:#fafbfc;min-height:100vh}
-.wrap{max-width:1060px;margin:0 auto;padding:48px 24px 80px}
-header{padding-bottom:22px;border-bottom:2.5px solid #1a1a1a}
-h1{font-size:32px;font-weight:700;letter-spacing:-.5px}
-.sub{color:#6b7280;font-size:14px;margin-top:8px}
-.test{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 18px;margin:24px 0;font-size:13.5px;color:#374151;box-shadow:0 1px 2px rgba(0,0,0,.03)}
-.mono{font-family:'SF Mono',Menlo,monospace;background:#f6f7f8;border:1px solid #e5e7eb;border-radius:6px;padding:2px 8px;margin:0 3px;font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
-.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:18px 20px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
-.card h3{font-size:18px;font-weight:700}
-.say{font-family:'SF Mono',Menlo,monospace;font-size:11.5px;color:#6b7280;margin-left:8px}
-.cat{font-size:10.5px;font-weight:600;color:#2563eb;background:#eff4ff;border-radius:99px;padding:2.5px 10px;float:right}
-.mean{font-size:13px;color:#374151;margin:10px 0 4px;line-height:1.5}
-.promise{font-size:12.5px;color:#6b7280;font-style:italic}
-.pill{display:inline-block;font-size:10.5px;font-weight:600;border-radius:99px;padding:2px 9px;margin:8px 6px 0 0}
-.strong{background:#ecfdf5;color:#047857}.good{background:#eff4ff;color:#2563eb}.fair{background:#fffbeb;color:#b45309}.weak{background:#fef2f2;color:#b91c1c}
-.coll{font-size:11px;color:#9ca3af;margin-top:6px}
-.stars{display:flex;gap:4px;margin-top:12px}
-.stars button{font-size:22px;background:none;border:none;cursor:pointer;color:#d1d5db;transition:transform .08s;padding:2px}
+html,body{height:100%}
+body{font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:#000;color:#fff}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.a2{animation:fadeSlideUp .8s ease .2s both}.a4{animation:fadeSlideUp .8s ease .4s both}
+.a6{animation:fadeSlideUp .8s ease .7s both}.a8{animation:fadeSlideUp .8s ease .9s both}
+.vbg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.55)}
+nav{position:relative;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:20px 24px}
+@media(min-width:768px){nav{padding:20px 48px}}
+.logo{font-size:18px;font-weight:600;letter-spacing:-.02em;color:#fff}
+@media(min-width:640px){.logo{font-size:20px}}
+.navlinks{display:none;gap:28px;margin-left:40px}
+@media(min-width:768px){.navlinks{display:flex}}
+.navlinks a{font-size:14px;color:rgba(255,255,255,.8);text-decoration:none;transition:color .2s}
+.navlinks a:hover{color:#fff}
+.btn-w{display:inline-flex;align-items:center;gap:8px;border-radius:10px;background:#fff;padding:10px 22px;font-size:14px;font-weight:500;color:#000;border:none;cursor:pointer;transition:transform .2s;text-decoration:none;font-family:'Geist',sans-serif}
+.btn-w:hover{transform:scale(1.05)}
+.btn-w:disabled{opacity:.4;cursor:default;transform:none}
+.badge{display:inline-block;font-size:12px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:5px 14px;margin-bottom:18px}
+@media(min-width:640px){.badge{font-size:13.5px}}
+h1{font-size:32px;font-weight:500;line-height:1.1;letter-spacing:-.03em}
+@media(min-width:640px){h1{font-size:48px}}
+@media(min-width:768px){h1{font-size:56px}}
+.muted{color:rgba(255,255,255,.6)}
+input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px;backdrop-filter:blur(6px)}
+input::placeholder{color:rgba(255,255,255,.4)}
+input:focus{outline:none;border-color:rgba(255,255,255,.6)}
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;backdrop-filter:blur(10px)}
+.pill{display:inline-block;font-size:11px;font-weight:500;border-radius:99px;padding:2.5px 10px}
+.strong{background:rgba(16,185,129,.18);color:#34d399}
+.good{background:rgba(59,130,246,.18);color:#60a5fa}
+.fair{background:rgba(245,158,11,.16);color:#fbbf24}
+.weak{background:rgba(239,68,68,.18);color:#f87171}
+.stars button{font-size:24px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.22);transition:transform .1s,color .1s;padding:2px}
 .stars button:hover{transform:scale(1.15)}
-.stars button.on{color:#f59e0b}
-.stars button.on.hov,.stars button.hov{color:#fbbf24}
-#gate{max-width:420px;margin:70px auto;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:36px;box-shadow:0 4px 16px rgba(0,0,0,.05)}
-#gate h2{font-size:22px;margin-bottom:8px}
-#gate p{color:#6b7280;font-size:13.5px;margin-bottom:20px}
-input[type=text],input[type=password]{width:100%;padding:12px 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;margin-bottom:14px;font-family:inherit}
-input:focus{outline:none;border-color:#2563eb}
-.btn{width:100%;padding:13px;background:#1a1a1a;color:#fff;border:none;border-radius:10px;font-size:14.5px;font-weight:600;cursor:pointer}
-.btn:hover{background:#000}
-.btn:disabled{opacity:.5;cursor:default}
-#submitBar{position:sticky;bottom:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-top:1px solid #e5e7eb;padding:16px 0;margin-top:28px}
-#submitBar .in{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:0 24px}
-#count{font-size:13.5px;color:#6b7280}
-#done{display:none;text-align:center;padding:80px 20px}
-#done h2{font-size:26px;margin-bottom:10px}
-#done p{color:#6b7280}
-a{color:#2563eb}
-.guide strong{color:#111}
-.steps{margin:10px 0 10px 20px;font-size:13px;color:#374151;line-height:1.7}
-.guide-legend{margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb;font-size:12px;color:#6b7280;line-height:2}
-.hiddencat{display:none}
-footer{margin-top:40px;text-align:center;font-size:12px;color:#9ca3af}
+.stars button.on{color:#fbbf24}
+.stars button.hov{color:rgba(251,191,36,.6)}
+.mono{font-family:ui-monospace,Menlo,monospace;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:2px 8px;font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.5);padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.3)}
+td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}
+a{color:#93c5fd}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden;flex:1}
+.bar>div{height:100%;background:#fbbf24;border-radius:99px}
 </style></head><body>
-<div id="gate">
-  <h2>Company Name Vote</h2>
-  <p>Enter your name to vote. Your ratings are logged under your name — one ballot per person.</p>
-  <input id="vname" type="text" placeholder="Your name" autocomplete="name">
-  <button class="btn" onclick="enter()">Start voting →</button>
-</div>
-<div id="app" style="display:none">
-<div class="wrap">
-  <header>
-    <h1>Company Name Shortlist</h1>
-    <div class="sub">Twelve candidates across three naming strategies. Rate each 1–5 stars. Voting as <b id="who"></b> · <a href="#" onclick="localStorage.clear();location.reload();return false">switch name</a></div>
-  </header>
-  <div class="test guide">
-    <strong>How to vote</strong>
-    <ol class="steps">
-      <li><strong>Read each card</strong> — meaning, brand promise, and any name collisions.</li>
-      <li><strong>Do the sentence test</strong> — say the name aloud in all three frames:
-        <div style="margin-top:6px"><span class="mono">"I run ___."</span><span class="mono">"We hired ___."</span><span class="mono">"Built by ___."</span></div></li>
-      <li><strong>Rate 1–5 stars</strong> (5 = best). Vote on gut feel — don't overthink it.</li>
-      <li><strong>Changed your mind?</strong> Click a different star to change a rating, or click the same star again to remove it.</li>
-      <li><strong>Submit at the bottom.</strong> You can skip names you have no opinion on. One ballot per person — voting again later updates your ratings.</li>
-    </ol>
-    <div class="guide-legend">
-      <span class="pill strong">Strong</span> passes the sentence test ·
-      <span class="pill good">Good</span> mostly passes ·
-      <span class="pill fair">Fair</span> mixed ·
-      <span class="pill weak">Weak</span> fails ·
-      <span style="color:#b45309">amber collision</span> = existing company conflict
+<video class="vbg" autoplay muted loop playsinline src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_204221_5339e40b-e73d-4ab0-9c65-79c18c66fd50.mp4"></video>
+<div class="scrim"></div>
+<nav>
+  <div style="display:flex;align-items:center"><span class="logo">Name&nbsp;Vote</span>
+    <div class="navlinks"><a href="index.html">Vote</a><a href="results.html">Results</a></div>
+  </div>
+  <a class="btn-w" href="results.html">Live Results</a>
+</nav>
+
+<div style="position:relative;z-index:10;max-width:1060px;margin:0 auto;padding:24px 24px 120px">
+  <!-- gate -->
+  <div id="gate" style="max-width:420px;margin:60px auto" class="card a4">
+    <div style="padding:34px">
+      <span class="badge">Twelve candidates · one winner</span>
+      <h2 style="font-size:24px;font-weight:500;margin-bottom:10px">Cast your vote</h2>
+      <p class="muted" style="font-size:14px;margin-bottom:22px">Enter your name to vote. Ratings are logged under your name — one ballot per person, re-voting updates it.</p>
+      <input id="vname" type="text" placeholder="Your name" autocomplete="name" onkeydown="if(event.key==='Enter')enter()">
+      <button class="btn-w" style="width:100%;justify-content:center" onclick="enter()">Start voting →</button>
     </div>
   </div>
-  <div class="grid" id="grid"></div>
-  <div id="submitBar"><div class="in">
-    <span id="count"></span>
-    <button class="btn" style="width:auto;padding:12px 32px" id="submitBtn" onclick="submitVotes()">Submit my votes</button>
-  </div></div>
-  <div id="done"><h2>✅ Votes submitted</h2><p>Thanks! Your ratings were recorded. <a href="results.html">See live results →</a></p></div>
-  <footer>One ballot per name · results visible after you vote</footer>
-</div></div>
-<script src="data.js"></script>
+  <!-- app -->
+  <div id="app" style="display:none">
+    <div style="max-width:720px;margin-bottom:36px">
+      <span class="badge a2">Company Name Shortlist</span>
+      <h1 class="a4">Pick the name<br>worth building on.</h1>
+      <div class="a6 card" style="padding:20px 24px;margin-top:26px">
+        <strong style="font-size:14px">How to vote</strong>
+        <ol style="margin:10px 0 10px 20px;font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.8">
+          <li><b style="color:#fff">Read each card</b> — meaning, brand promise, and name collisions.</li>
+          <li><b style="color:#fff">Sentence test</b> — say it aloud in all three frames:<br>
+            <span class="mono">"I run ___."</span> <span class="mono">"We hired ___."</span> <span class="mono">"Built by ___."</span></li>
+          <li><b style="color:#fff">Rate 1–5 stars</b> (5 = best). Gut feel — don't overthink it.</li>
+          <li><b style="color:#fff">Changed your mind?</b> Click another star to change, or the same star again to remove.</li>
+          <li><b style="color:#fff">Submit at the bottom.</b> Skip names you have no opinion on.</li>
+        </ol>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.55);line-height:2">
+          <span class="pill strong">Strong</span> passes the test ·
+          <span class="pill good">Good</span> mostly passes ·
+          <span class="pill fair">Fair</span> mixed ·
+          <span class="pill weak">Weak</span> fails ·
+          <span style="color:#fbbf24">amber collision</span> = existing company
+        </div>
+      </div>
+    </div>
+    <p class="muted a8" style="font-size:14px;margin-bottom:20px">Voting as <b id="who" style="color:#fff"></b> · <a href="#" onclick="localStorage.removeItem('nv_name');location.reload();return false">switch name</a></p>
+    <div id="grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px"></div>
+    <div id="submitBar" style="position:sticky;bottom:16px;margin-top:32px;display:flex;align-items:center;gap:18px;justify-content:space-between" class="card">
+      <span id="count" class="muted" style="font-size:14px;padding-left:20px"></span>
+      <button class="btn-w" id="submitBtn" style="margin:12px" onclick="submitVotes()">Submit my votes</button>
+    </div>
+    <div id="done" style="display:none;text-align:center;padding:80px 20px">
+      <h2 style="font-size:28px;font-weight:500;margin-bottom:10px">✅ Votes submitted</h2>
+      <p class="muted">Thanks! Your ratings were recorded. <a href="results.html">See live results →</a></p>
+    </div>
+  </div>
+</div>
 <script>
 const votes={};
 let voter=localStorage.getItem('nv_name');
@@ -100,15 +121,19 @@ function showApp(){
   render();
 }
 function render(){
-  const g=document.getElementById('grid');
-  g.innerHTML='';
-  NAMES.forEach(x=>{
+  const g=document.getElementById('grid');g.innerHTML='';
+  NAMES.forEach((x,i)=>{
     const c=document.createElement('div');c.className='card';
-    c.innerHTML=`<span class="cat">${x.cat}</span><h3>${x.n}<span class="say">${x.say}</span></h3>
-      <div class="mean">${x.mean}</div><div class="promise">${x.promise}</div>
-      <div><span class="pill ${x.test.toLowerCase()}">Sentence test: ${x.test}</span></div>
-      <div class="coll">Collision: ${x.collision}</div>
-      <div class="stars" data-id="${x.id}">${[1,2,3,4,5].map(i=>`<button data-v="${i}" title="${i} star${i>1?'s':''}">★</button>`).join('')}</div>`;
+    c.style.padding='20px 22px';c.style.animation=`fadeSlideUp .8s ease ${.15*i+0.2}s both`;
+    const collWarn=/clean|minor/i.test(x.collision)?'':'color:#fbbf24';
+    c.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <h3 style="font-size:19px;font-weight:600">${x.n}<span class="muted" style="font-weight:400;font-size:12px;font-family:ui-monospace,Menlo,monospace;margin-left:8px">${x.say}</span></h3>
+      <span class="badge" style="margin:0;font-size:10.5px;padding:2px 10px">${x.cat}</span></div>
+      <div style="font-size:13.5px;color:rgba(255,255,255,.8);margin:10px 0 4px;line-height:1.5">${x.mean}</div>
+      <div style="font-size:12.5px;color:rgba(255,255,255,.5);font-style:italic">${x.promise}</div>
+      <div style="margin-top:10px"><span class="pill ${x.test.toLowerCase()}">Sentence test: ${x.test}</span>
+      <span style="font-size:11.5px;color:rgba(255,255,255,.45);${collWarn}">Collision: ${x.collision}</span></div>
+      <div class="stars" data-id="${x.id}" style="display:flex;gap:4px;margin-top:12px">${[1,2,3,4,5].map(i=>`<button data-v="${i}" title="${i} star${i>1?'s':''}">★</button>`).join('')}</div>`;
     g.appendChild(c);
   });
   g.querySelectorAll('.stars button').forEach(b=>{
@@ -137,3 +162,4 @@ async function submitVotes(){
   }catch(e){btn.disabled=false;btn.textContent='Submit my votes';alert('Submit failed — check connection and try again.');}
 }
 </script></body></html>
+<script src="data.js"></script>

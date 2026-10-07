@@ -1,37 +1,82 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Live Results — Name Vote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;color:#1a1a1a;background:#fafbfc;min-height:100vh}
-.wrap{max-width:760px;margin:0 auto;padding:48px 24px 80px}
-h1{font-size:28px;font-weight:700}
-.sub{color:#6b7280;font-size:13.5px;margin:8px 0 32px}
-.row{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px}
-.rank{font-size:16px;font-weight:700;color:#9ca3af;width:28px}
-.nm{font-size:16px;font-weight:700;width:130px}
-.bar{flex:1;height:10px;background:#f0f1f3;border-radius:99px;overflow:hidden}
-.bar>div{height:100%;background:#f59e0b;border-radius:99px}
-.avg{font-size:15px;font-weight:700;width:52px;text-align:right}
-.ct{font-size:12px;color:#9ca3af;width:70px;text-align:right}
-.err{color:#b91c1c;font-size:14px;padding:20px;background:#fef2f2;border-radius:10px}
-a{color:#2563eb;font-size:13px}
-</style></head><body><div class="wrap">
-<h1>Live Results</h1>
-<div class="sub">Average star rating per name · <span id="voters"></span> · <a href="index.html">← Vote</a></div>
-<div id="list">Loading…</div>
+html,body{height:100%}
+body{font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:#000;color:#fff}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.a2{animation:fadeSlideUp .8s ease .2s both}.a4{animation:fadeSlideUp .8s ease .4s both}
+.a6{animation:fadeSlideUp .8s ease .7s both}.a8{animation:fadeSlideUp .8s ease .9s both}
+.vbg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.55)}
+nav{position:relative;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:20px 24px}
+@media(min-width:768px){nav{padding:20px 48px}}
+.logo{font-size:18px;font-weight:600;letter-spacing:-.02em;color:#fff}
+@media(min-width:640px){.logo{font-size:20px}}
+.navlinks{display:none;gap:28px;margin-left:40px}
+@media(min-width:768px){.navlinks{display:flex}}
+.navlinks a{font-size:14px;color:rgba(255,255,255,.8);text-decoration:none;transition:color .2s}
+.navlinks a:hover{color:#fff}
+.btn-w{display:inline-flex;align-items:center;gap:8px;border-radius:10px;background:#fff;padding:10px 22px;font-size:14px;font-weight:500;color:#000;border:none;cursor:pointer;transition:transform .2s;text-decoration:none;font-family:'Geist',sans-serif}
+.btn-w:hover{transform:scale(1.05)}
+.btn-w:disabled{opacity:.4;cursor:default;transform:none}
+.badge{display:inline-block;font-size:12px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:5px 14px;margin-bottom:18px}
+@media(min-width:640px){.badge{font-size:13.5px}}
+h1{font-size:32px;font-weight:500;line-height:1.1;letter-spacing:-.03em}
+@media(min-width:640px){h1{font-size:48px}}
+@media(min-width:768px){h1{font-size:56px}}
+.muted{color:rgba(255,255,255,.6)}
+input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px;backdrop-filter:blur(6px)}
+input::placeholder{color:rgba(255,255,255,.4)}
+input:focus{outline:none;border-color:rgba(255,255,255,.6)}
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;backdrop-filter:blur(10px)}
+.pill{display:inline-block;font-size:11px;font-weight:500;border-radius:99px;padding:2.5px 10px}
+.strong{background:rgba(16,185,129,.18);color:#34d399}
+.good{background:rgba(59,130,246,.18);color:#60a5fa}
+.fair{background:rgba(245,158,11,.16);color:#fbbf24}
+.weak{background:rgba(239,68,68,.18);color:#f87171}
+.stars button{font-size:24px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.22);transition:transform .1s,color .1s;padding:2px}
+.stars button:hover{transform:scale(1.15)}
+.stars button.on{color:#fbbf24}
+.stars button.hov{color:rgba(251,191,36,.6)}
+.mono{font-family:ui-monospace,Menlo,monospace;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:2px 8px;font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.5);padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.3)}
+td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}
+a{color:#93c5fd}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden;flex:1}
+.bar>div{height:100%;background:#fbbf24;border-radius:99px}
+</style></head><body>
+<video class="vbg" autoplay muted loop playsinline src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_204221_5339e40b-e73d-4ab0-9c65-79c18c66fd50.mp4"></video>
+<div class="scrim"></div>
+<nav>
+  <div style="display:flex;align-items:center"><span class="logo">Name&nbsp;Vote</span>
+    <div class="navlinks"><a href="index.html">Vote</a><a href="results.html">Results</a></div>
+  </div>
+  <a class="btn-w" href="results.html">Live Results</a>
+</nav>
+
+<div style="position:relative;z-index:10;max-width:760px;margin:0 auto;padding:32px 24px 120px">
+  <span class="badge a2">Leaderboard</span>
+  <h1 class="a4" style="margin-bottom:8px">Live results.</h1>
+  <p class="muted a6" style="font-size:14px;margin-bottom:32px">Average star rating per name · <span id="voters"></span></p>
+  <div id="list" class="a8"><p class="muted">Loading…</p></div>
 </div>
-<script src="data.js"></script>
 <script>
 fetch(API_URL+'?action=results').then(r=>r.json()).then(d=>{
   const list=document.getElementById('list');
-  if(!d.ok){list.innerHTML='<div class="err">'+ (d.error||'Failed to load results') +'</div>';return}
+  if(!d.ok){list.innerHTML='<p style="color:#f87171">'+(d.error||'Failed to load results')+'</p>';return}
   document.getElementById('voters').textContent=d.voterCount+' voter'+(d.voterCount==1?'':'s');
-  const rows=d.scores.map(s=>{
-    const meta=NAMES.find(x=>x.id===s.id)||{n:s.id};
-    return {n:meta.n,avg:s.avg,count:s.count};
-  }).sort((a,b)=>b.avg-a.avg);
-  list.innerHTML=rows.map((r,i)=>`<div class="row"><span class="rank">#${i+1}</span><span class="nm">${r.n}</span>
+  const rows=d.scores.map(s=>{const m=NAMES.find(x=>x.id===s.id)||{n:s.id};return{n:m.n,avg:s.avg,count:s.count}})
+    .sort((a,b)=>b.avg-a.avg);
+  list.innerHTML=rows.map((r,i)=>`<div class="card" style="padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px">
+    <span style="font-weight:600;color:rgba(255,255,255,.4);width:30px">#${i+1}</span>
+    <span style="font-weight:600;width:120px">${r.n}</span>
     <div class="bar"><div style="width:${(r.avg/5*100).toFixed(0)}%"></div></div>
-    <span class="avg">${r.avg?r.avg.toFixed(1):'—'}</span><span class="ct">${r.count} vote${r.count==1?'':'s'}</span></div>`).join('');
-}).catch(e=>{document.getElementById('list').innerHTML='<div class="err">Could not load results.</div>'});
+    <span style="font-weight:600;width:48px;text-align:right">${r.avg?r.avg.toFixed(1):'—'}</span>
+    <span class="muted" style="font-size:12px;width:66px;text-align:right">${r.count} vote${r.count==1?'':'s'}</span></div>`).join('');
+}).catch(()=>{document.getElementById('list').innerHTML='<p style="color:#f87171">Could not load results.</p>'});
 </script></body></html>
+<script src="data.js"></script>

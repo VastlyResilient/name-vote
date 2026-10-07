@@ -1,37 +1,79 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Admin — Name Vote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;color:#1a1a1a;background:#fafbfc;min-height:100vh}
-.wrap{max-width:960px;margin:0 auto;padding:48px 24px 80px}
-h1{font-size:28px;font-weight:700}
-.sub{color:#6b7280;font-size:13.5px;margin:8px 0 28px}
-#login{max-width:400px;margin:70px auto;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:36px}
-#login h2{font-size:20px;margin-bottom:16px}
-input{width:100%;padding:12px 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;margin-bottom:14px;font-family:inherit}
-input:focus{outline:none;border-color:#2563eb}
-.btn{width:100%;padding:12px;background:#1a1a1a;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
-.btn:hover{background:#000}
-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;font-size:12.5px}
-th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.7px;color:#6b7280;padding:10px 12px;border-bottom:2px solid #1a1a1a}
-td{padding:9px 12px;border-bottom:1px solid #eceef0}
-.err{color:#b91c1c;font-size:13px;margin-top:8px}
-.sum{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-.chip{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:10px 16px;font-size:13px}
-.chip b{font-size:18px;display:block}
-a{color:#2563eb;font-size:13px}
+html,body{height:100%}
+body{font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:#000;color:#fff}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.a2{animation:fadeSlideUp .8s ease .2s both}.a4{animation:fadeSlideUp .8s ease .4s both}
+.a6{animation:fadeSlideUp .8s ease .7s both}.a8{animation:fadeSlideUp .8s ease .9s both}
+.vbg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.55)}
+nav{position:relative;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:20px 24px}
+@media(min-width:768px){nav{padding:20px 48px}}
+.logo{font-size:18px;font-weight:600;letter-spacing:-.02em;color:#fff}
+@media(min-width:640px){.logo{font-size:20px}}
+.navlinks{display:none;gap:28px;margin-left:40px}
+@media(min-width:768px){.navlinks{display:flex}}
+.navlinks a{font-size:14px;color:rgba(255,255,255,.8);text-decoration:none;transition:color .2s}
+.navlinks a:hover{color:#fff}
+.btn-w{display:inline-flex;align-items:center;gap:8px;border-radius:10px;background:#fff;padding:10px 22px;font-size:14px;font-weight:500;color:#000;border:none;cursor:pointer;transition:transform .2s;text-decoration:none;font-family:'Geist',sans-serif}
+.btn-w:hover{transform:scale(1.05)}
+.btn-w:disabled{opacity:.4;cursor:default;transform:none}
+.badge{display:inline-block;font-size:12px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:5px 14px;margin-bottom:18px}
+@media(min-width:640px){.badge{font-size:13.5px}}
+h1{font-size:32px;font-weight:500;line-height:1.1;letter-spacing:-.03em}
+@media(min-width:640px){h1{font-size:48px}}
+@media(min-width:768px){h1{font-size:56px}}
+.muted{color:rgba(255,255,255,.6)}
+input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px;backdrop-filter:blur(6px)}
+input::placeholder{color:rgba(255,255,255,.4)}
+input:focus{outline:none;border-color:rgba(255,255,255,.6)}
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;backdrop-filter:blur(10px)}
+.pill{display:inline-block;font-size:11px;font-weight:500;border-radius:99px;padding:2.5px 10px}
+.strong{background:rgba(16,185,129,.18);color:#34d399}
+.good{background:rgba(59,130,246,.18);color:#60a5fa}
+.fair{background:rgba(245,158,11,.16);color:#fbbf24}
+.weak{background:rgba(239,68,68,.18);color:#f87171}
+.stars button{font-size:24px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.22);transition:transform .1s,color .1s;padding:2px}
+.stars button:hover{transform:scale(1.15)}
+.stars button.on{color:#fbbf24}
+.stars button.hov{color:rgba(251,191,36,.6)}
+.mono{font-family:ui-monospace,Menlo,monospace;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:2px 8px;font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.5);padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.3)}
+td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}
+a{color:#93c5fd}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden;flex:1}
+.bar>div{height:100%;background:#fbbf24;border-radius:99px}
 </style></head><body>
-<div id="login"><h2>Admin sign in</h2>
-<input id="key" type="password" placeholder="Admin key">
-<button class="btn" onclick="login()">Sign in</button>
-<div class="err" id="lerr"></div></div>
-<div id="panel" class="wrap" style="display:none">
-<h1>Vote Admin</h1>
-<div class="sub">Raw ballot log · <a href="results.html">Public results</a> · <a href="#" onclick="localStorage.removeItem('nv_admin');location.reload();return false">Sign out</a></div>
-<div class="sum" id="sum"></div>
-<table id="tbl"></table>
+<video class="vbg" autoplay muted loop playsinline src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_204221_5339e40b-e73d-4ab0-9c65-79c18c66fd50.mp4"></video>
+<div class="scrim"></div>
+<nav>
+  <div style="display:flex;align-items:center"><span class="logo">Name&nbsp;Vote</span>
+    <div class="navlinks"><a href="index.html">Vote</a><a href="results.html">Results</a></div>
+  </div>
+  <a class="btn-w" href="results.html">Live Results</a>
+</nav>
+
+<div style="position:relative;z-index:10;max-width:960px;margin:0 auto;padding:32px 24px 120px">
+  <div id="login" class="card" style="max-width:400px;margin:60px auto;padding:34px">
+    <span class="badge">Admin</span>
+    <h2 style="font-size:22px;font-weight:500;margin-bottom:18px">Sign in</h2>
+    <input id="key" type="password" placeholder="Admin key" onkeydown="if(event.key==='Enter')login()">
+    <button class="btn-w" style="width:100%;justify-content:center" onclick="login()">Sign in</button>
+    <div id="lerr" style="color:#f87171;font-size:13px;margin-top:10px"></div>
+  </div>
+  <div id="panel" style="display:none">
+    <span class="badge a2">Admin</span>
+    <h1 class="a4" style="margin-bottom:8px">Ballot log.</h1>
+    <p class="muted a6" style="font-size:14px;margin-bottom:24px"><a href="results.html">Public results</a> · <a href="#" onclick="localStorage.removeItem('nv_admin');location.reload();return false">Sign out</a></p>
+    <div id="sum" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px"></div>
+    <div class="card" style="overflow:auto"><table id="tbl" style="min-width:560px"></table></div>
+  </div>
 </div>
-<script src="data.js"></script>
 <script>
 let key=localStorage.getItem('nv_admin');
 if(key){document.getElementById('login').style.display='none';load();}
@@ -44,11 +86,12 @@ function load(){
      document.getElementById('login').style.display='block';
      document.getElementById('lerr').textContent=d.error||'Wrong key';return}
    document.getElementById('sum').innerHTML=
-     `<div class="chip"><b>${d.voterCount}</b>voters</div><div class="chip"><b>${d.totalRatings}</b>ratings</div>`+
-     `<div class="chip" style="flex:1;min-width:200px"><b>${d.topName||'—'}</b>current leader</div>`;
-   const t=document.getElementById('tbl');
-   t.innerHTML='<tr><th>Voter</th><th>Name</th><th>Rating</th><th>Time</th></tr>'+
-     d.rows.map(r=>`<tr><td>${r.voter}</td><td>${r.name}</td><td>${'★'.repeat(r.rating)}</td><td>${new Date(r.ts).toLocaleString()}</td></tr>`).join('');
+     `<div class="card" style="padding:12px 20px"><b style="font-size:20px;display:block">${d.voterCount}</b><span class="muted" style="font-size:12px">voters</span></div>`+
+     `<div class="card" style="padding:12px 20px"><b style="font-size:20px;display:block">${d.totalRatings}</b><span class="muted" style="font-size:12px">ratings</span></div>`+
+     `<div class="card" style="padding:12px 20px;flex:1;min-width:180px"><b style="font-size:20px;display:block">${d.topName||'—'}</b><span class="muted" style="font-size:12px">current leader</span></div>`;
+   document.getElementById('tbl').innerHTML='<tr><th>Voter</th><th>Name</th><th>Rating</th><th>Time</th></tr>'+
+     d.rows.map(r=>`<tr><td>${r.voter}</td><td>${r.name}</td><td style="color:#fbbf24">${'★'.repeat(r.rating)}</td><td class="muted">${new Date(r.ts).toLocaleString()}</td></tr>`).join('');
  });
 }
 </script></body></html>
+<script src="data.js"></script>
