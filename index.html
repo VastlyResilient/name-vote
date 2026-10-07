@@ -1,0 +1,117 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Name Vote — Company Name Shortlist</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;color:#1a1a1a;background:#fafbfc;min-height:100vh}
+.wrap{max-width:1060px;margin:0 auto;padding:48px 24px 80px}
+header{padding-bottom:22px;border-bottom:2.5px solid #1a1a1a}
+h1{font-size:32px;font-weight:700;letter-spacing:-.5px}
+.sub{color:#6b7280;font-size:14px;margin-top:8px}
+.test{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 18px;margin:24px 0;font-size:13.5px;color:#374151;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.mono{font-family:'SF Mono',Menlo,monospace;background:#f6f7f8;border:1px solid #e5e7eb;border-radius:6px;padding:2px 8px;margin:0 3px;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:18px 20px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.card h3{font-size:18px;font-weight:700}
+.say{font-family:'SF Mono',Menlo,monospace;font-size:11.5px;color:#6b7280;margin-left:8px}
+.cat{font-size:10.5px;font-weight:600;color:#2563eb;background:#eff4ff;border-radius:99px;padding:2.5px 10px;float:right}
+.mean{font-size:13px;color:#374151;margin:10px 0 4px;line-height:1.5}
+.promise{font-size:12.5px;color:#6b7280;font-style:italic}
+.pill{display:inline-block;font-size:10.5px;font-weight:600;border-radius:99px;padding:2px 9px;margin:8px 6px 0 0}
+.strong{background:#ecfdf5;color:#047857}.good{background:#eff4ff;color:#2563eb}.fair{background:#fffbeb;color:#b45309}.weak{background:#fef2f2;color:#b91c1c}
+.coll{font-size:11px;color:#9ca3af;margin-top:6px}
+.stars{display:flex;gap:4px;margin-top:12px}
+.stars button{font-size:22px;background:none;border:none;cursor:pointer;color:#d1d5db;transition:transform .08s;padding:2px}
+.stars button:hover{transform:scale(1.15)}
+.stars button.on{color:#f59e0b}
+.stars button.on.hov,.stars button.hov{color:#fbbf24}
+#gate{max-width:420px;margin:70px auto;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:36px;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+#gate h2{font-size:22px;margin-bottom:8px}
+#gate p{color:#6b7280;font-size:13.5px;margin-bottom:20px}
+input[type=text],input[type=password]{width:100%;padding:12px 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;margin-bottom:14px;font-family:inherit}
+input:focus{outline:none;border-color:#2563eb}
+.btn{width:100%;padding:13px;background:#1a1a1a;color:#fff;border:none;border-radius:10px;font-size:14.5px;font-weight:600;cursor:pointer}
+.btn:hover{background:#000}
+.btn:disabled{opacity:.5;cursor:default}
+#submitBar{position:sticky;bottom:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-top:1px solid #e5e7eb;padding:16px 0;margin-top:28px}
+#submitBar .in{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:0 24px}
+#count{font-size:13.5px;color:#6b7280}
+#done{display:none;text-align:center;padding:80px 20px}
+#done h2{font-size:26px;margin-bottom:10px}
+#done p{color:#6b7280}
+a{color:#2563eb}
+.hiddencat{display:none}
+footer{margin-top:40px;text-align:center;font-size:12px;color:#9ca3af}
+</style></head><body>
+<div id="gate">
+  <h2>Company Name Vote</h2>
+  <p>Enter your name to vote. Your ratings are logged under your name — one ballot per person.</p>
+  <input id="vname" type="text" placeholder="Your name" autocomplete="name">
+  <button class="btn" onclick="enter()">Start voting →</button>
+</div>
+<div id="app" style="display:none">
+<div class="wrap">
+  <header>
+    <h1>Company Name Shortlist</h1>
+    <div class="sub">Twelve candidates across three naming strategies. Rate each 1–5 stars. Voting as <b id="who"></b> · <a href="#" onclick="localStorage.clear();location.reload();return false">switch name</a></div>
+  </header>
+  <div class="test"><strong>Sentence test</strong> — say each name aloud in all three frames: <span class="mono">"I run ___."</span><span class="mono">"We hired ___."</span><span class="mono">"Built by ___."</span></div>
+  <div class="grid" id="grid"></div>
+  <div id="submitBar"><div class="in">
+    <span id="count"></span>
+    <button class="btn" style="width:auto;padding:12px 32px" id="submitBtn" onclick="submitVotes()">Submit my votes</button>
+  </div></div>
+  <div id="done"><h2>✅ Votes submitted</h2><p>Thanks! Your ratings were recorded. <a href="results.html">See live results →</a></p></div>
+  <footer>One ballot per name · results visible after you vote</footer>
+</div></div>
+<script src="data.js"></script>
+<script>
+const votes={};
+let voter=localStorage.getItem('nv_name');
+if(voter) showApp();
+function enter(){
+  const v=document.getElementById('vname').value.trim();
+  if(!v){document.getElementById('vname').focus();return}
+  localStorage.setItem('nv_name',v); voter=v; showApp();
+}
+function showApp(){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('who').textContent=voter;
+  render();
+}
+function render(){
+  const g=document.getElementById('grid');
+  g.innerHTML='';
+  NAMES.forEach(x=>{
+    const c=document.createElement('div');c.className='card';
+    c.innerHTML=`<span class="cat">${x.cat}</span><h3>${x.n}<span class="say">${x.say}</span></h3>
+      <div class="mean">${x.mean}</div><div class="promise">${x.promise}</div>
+      <div><span class="pill ${x.test.toLowerCase()}">Sentence test: ${x.test}</span></div>
+      <div class="coll">Collision: ${x.collision}</div>
+      <div class="stars" data-id="${x.id}">${[1,2,3,4,5].map(i=>`<button data-v="${i}" title="${i} star${i>1?'s':''}">★</button>`).join('')}</div>`;
+    g.appendChild(c);
+  });
+  g.querySelectorAll('.stars button').forEach(b=>{
+    b.onclick=()=>{const s=b.parentElement;const id=s.dataset.id;const v=+b.dataset.v;votes[id]=v;
+      s.querySelectorAll('button').forEach(x=>x.classList.toggle('on',+x.dataset.v<=v));updCount();};
+    b.onmouseenter=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.classList.toggle('hov',+x.dataset.v<=+b.dataset.v));};
+    b.onmouseleave=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('hov'));};
+  });
+  updCount();
+}
+function updCount(){
+  const n=Object.keys(votes).length;
+  document.getElementById('count').textContent=`${n} / ${NAMES.length} rated`;
+  document.getElementById('submitBtn').disabled=n===0;
+}
+async function submitVotes(){
+  const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Submitting…';
+  try{
+    await fetch(API_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({voter:voter,votes:votes,ts:new Date().toISOString()})});
+    document.getElementById('submitBar').style.display='none';
+    document.getElementById('grid').style.display='none';
+    document.getElementById('done').style.display='block';
+  }catch(e){btn.disabled=false;btn.textContent='Submit my votes';alert('Submit failed — check connection and try again.');}
+}
+</script></body></html>
