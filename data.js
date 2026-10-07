@@ -322,6 +322,6 @@ const NAMES=[
 "'Servolution Ops' — no.",
 "'We hired Servolution' — people hear 'servo' and think motors."
 ]
-}
-];
+},
+{"id": "triolution", "n": "Triolution", "say": "try-oh-LOO-shun", "cat": "Coined", "mean": "Tri- (three / combined whole) + solution + evolution — all AI automation procedures combined into one", "promise": "Every automation, one name", "test": "Fair", "collision": "Minor", "pitch": "Triolution — every AI automation, combined into one system.", "challenge": "A customer hears it once and tries to type it: Triolution, Triolusion, Tryolution? Can a name survive when the spelling contest starts at hello?", "risks": "Triple-blend (tri + solution + evolution) — invented, needs teaching. Spelling on hearing is the weak point: tri-/try-, -olution/-usion. Also reads close to 'trillion' or 'triathlon' in a fast read.", "dom": {"com": "avail", "ai": "avail", "handle": "avail"}, "lineage": "—", "crit": ["Coined triple blend (tri + solution + evolution) — invented; the 'all automations combined' story is real but has to be told.", "Four syllables (try-oh-LOO-shun). Over the ideal — same weight class as Servolution.", "'Everything combined' describes the product offering — that's product level, not one level above it.", "Long word with double vowels; cluttered on a wordmark, though the 'T' gives it a strong initial.", "'Triolution Ops' is redundant — the name already claims to be the whole.", "'We hired Triolution' — people will ask you to spell it before they can repeat it."]}]
 const API_URL=window.API_URL||"";
