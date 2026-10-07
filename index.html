@@ -7,8 +7,8 @@
 html,body{height:100%}
 body{font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:#000;color:#fff}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes gutIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
 .a2{animation:fadeSlideUp .8s ease .2s both}.a4{animation:fadeSlideUp .8s ease .4s both}
-.a5{animation:fadeSlideUp .8s ease .55s both}
 .a6{animation:fadeSlideUp .8s ease .7s both}.a8{animation:fadeSlideUp .8s ease .9s both}
 .vbg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center}
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.55)}
@@ -24,14 +24,14 @@ nav{position:relative;z-index:30;display:flex;justify-content:space-between;alig
 .btn-w:hover{transform:scale(1.05)}
 .btn-w:disabled{opacity:.4;cursor:default;transform:none}
 .badge{display:inline-block;font-size:12px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:5px 14px;margin-bottom:18px}
-@media(min-width:640px){.badge{font-size:13.5px}}
 h1{font-size:32px;font-weight:500;line-height:1.1;letter-spacing:-.03em}
 @media(min-width:640px){h1{font-size:48px}}
 @media(min-width:768px){h1{font-size:56px}}
 .muted{color:rgba(255,255,255,.6)}
-input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px}
-input::placeholder{color:rgba(255,255,255,.4)}
-input:focus{outline:none;border-color:rgba(255,255,255,.6)}
+input,textarea{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.4)}
+input:focus,textarea:focus{outline:none;border-color:rgba(255,255,255,.6)}
+textarea{min-height:90px;resize:vertical}
 .card{background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.14);border-radius:16px;backdrop-filter:blur(24px) saturate(1.1);-webkit-backdrop-filter:blur(24px) saturate(1.1)}
 .pill{display:inline-block;font-size:11px;font-weight:500;border-radius:99px;padding:2.5px 10px}
 .strong{background:rgba(16,185,129,.18);color:#34d399}
@@ -47,14 +47,29 @@ input:focus{outline:none;border-color:rgba(255,255,255,.6)}
 .stars button.on{color:#fbbf24}
 .stars button.hov{color:rgba(251,191,36,.6)}
 .mono{font-family:ui-monospace,Menlo,monospace;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:2px 8px;font-size:12px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.5);padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.3)}
-td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}
 a{color:#93c5fd}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden;flex:1}
-.bar>div{height:100%;background:#fbbf24;border-radius:99px}
+/* gut round */
+.gutname{font-size:64px;font-weight:600;letter-spacing:-.03em;animation:gutIn .5s ease both;text-align:center}
+@media(min-width:768px){.gutname{font-size:96px}}
+.gutbtn{flex:1;padding:16px 8px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font-size:16px;font-weight:500;font-family:'Geist',sans-serif;cursor:pointer;transition:transform .15s,background .2s}
+.gutbtn:hover{transform:scale(1.04);background:rgba(255,255,255,.14)}
+/* ranking */
+.rankrow{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);margin-bottom:8px;cursor:grab;user-select:none}
+.rankrow.dragging{opacity:.4}
+.ranknum{font-weight:600;color:rgba(255,255,255,.4);width:26px}
+/* domain dots */
+.dot{display:inline-block;width:9px;height:9px;border-radius:99px;margin-right:4px;vertical-align:middle}
+.dot.avail{background:#34d399}.dot.taken{background:#f87171}.dot.parked{background:#fbbf24}
+/* wordmark toggle */
+.wm{font-size:22px;letter-spacing:-.01em;color:#fff}
+.wm.grotesk{font-family:'Geist',sans-serif;font-weight:600}
+.wm.retro{font-family:ui-monospace,Menlo,monospace;font-weight:500;text-transform:uppercase;letter-spacing:.14em}
+details.risks{margin-top:10px;font-size:12.5px;color:rgba(255,255,255,.55)}
+details.risks summary{cursor:pointer;color:rgba(251,191,36,.85);list-style:none}
+details.risks summary::before{content:'▸ ';font-size:10px}
+details.risks[open] summary::before{content:'▾ '}
 </style></head><body>
-<script src="data.js?v=3"></script>
+<script src="data.js?v=4"></script>
 <video class="vbg" autoplay muted loop playsinline src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_204221_5339e40b-e73d-4ab0-9c65-79c18c66fd50.mp4"></video>
 <div class="scrim"></div>
 <nav>
@@ -68,53 +83,78 @@ a{color:#93c5fd}
   <!-- gate -->
   <div id="gate" style="max-width:420px;margin:60px auto" class="card a4">
     <div style="padding:34px">
-      <span class="badge">Twelve candidates · one winner</span>
+      <span class="badge">Twelve candidates · three rounds</span>
       <h2 style="font-size:24px;font-weight:500;margin-bottom:10px">Cast your vote</h2>
-      <p class="muted" style="font-size:14px;margin-bottom:22px">Enter your name to vote. Ratings are logged under your name — one ballot per person, re-voting updates it.</p>
-      <div style="margin-bottom:18px"><p class="muted" style="font-size:12px;margin-bottom:8px">You'll be rating all 12 names:</p>
-      <div style="display:flex;flex-wrap:wrap;gap:6px" id="previewChips"></div></div>
+      <p class="muted" style="font-size:14px;margin-bottom:22px;line-height:1.6">Round 1 is pure gut. Round 2 is considered. Round 3, you rank your favorites. No standings shown — vote blind.</p>
       <input id="vname" type="text" placeholder="Your name" autocomplete="name" onkeydown="if(event.key==='Enter')enter()">
       <button class="btn-w" style="width:100%;justify-content:center" onclick="enter()">Start voting →</button>
     </div>
   </div>
-  <!-- app -->
+
+  <!-- ROUND 1: gut -->
+  <div id="gut" style="display:none">
+    <div style="max-width:560px;margin:40px auto;text-align:center">
+      <span class="badge a2">Round 1 of 3 · Gut reaction</span>
+      <p class="muted a4" style="font-size:14px;margin-bottom:8px">Look at the name. Two seconds. Then: <b style="color:#fff">Keep, Pass, or Maybe</b> — the call a customer makes before they know anything.</p>
+      <p class="muted a4" style="font-size:12px;margin-bottom:40px" id="gutProg"></p>
+      <div id="gutFlash" style="min-height:180px;display:flex;align-items:center;justify-content:center"></div>
+      <div id="gutBtns" style="display:none;gap:12px;max-width:440px;margin:24px auto 0">
+        <button class="gutbtn" style="color:#f87171" onclick="gutVote('pass')">Pass</button>
+        <button class="gutbtn" style="color:#fbbf24" onclick="gutVote('maybe')">Maybe</button>
+        <button class="gutbtn" style="color:#34d399" onclick="gutVote('keep')">Keep</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROUND 2: considered -->
   <div id="app" style="display:none">
     <div style="max-width:720px;margin-bottom:36px">
-      <span class="badge a2">Company Name Shortlist</span>
-      <h1 class="a4">Pick the name<br>worth building on.</h1>
+      <span class="badge a2">Round 2 of 3 · Considered score</span>
+      <h1 class="a4">Now look closer.<br>Rate what holds up.</h1>
       <div class="a6 card" style="padding:20px 24px;margin-top:26px">
-        <strong style="font-size:14px">How to vote</strong>
-        <ol style="margin:10px 0 10px 20px;font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.8">
-          <li><b style="color:#fff">Read each card</b> — meaning, brand promise, and name collisions.</li>
-          <li><b style="color:#fff">Sentence test</b> — say it aloud in all three frames:<br>
-            <span class="mono">"I run ___."</span> <span class="mono">"We hired ___."</span> <span class="mono">"Built by ___."</span></li>
-          <li><b style="color:#fff">Rate 1–5 stars</b> (5 = best). Gut feel — don't overthink it.</li>
-          <li><b style="color:#fff">Changed your mind?</b> Click another star to change, or the same star again to remove.</li>
-          <li><b style="color:#fff">Submit at the bottom.</b> Skip names you have no opinion on.</li>
+        <ol style="margin:4px 0 4px 20px;font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.8">
+          <li><b style="color:#fff">Say it in the three sentences</b> — they're filled in on every card.</li>
+          <li><b style="color:#fff">Rate 1–5 stars</b> (5 = best). Skip names you have no opinion on.</li>
+          <li><b style="color:#fff">Cards are shuffled</b> per voter — no first-position advantage.</li>
         </ol>
         <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.55);line-height:2">
-          <span class="pill strong">Strong</span> passes the test ·
-          <span class="pill good">Good</span> mostly passes ·
-          <span class="pill fair">Fair</span> mixed ·
-          <span class="pill weak">Weak</span> fails ·
-          <span style="color:#fbbf24">amber collision</span> = existing company
+          <span class="dot avail"></span>available <span class="dot taken" style="margin-left:10px"></span>taken <span class="dot parked" style="margin-left:10px"></span>parked · domain/handle status
         </div>
       </div>
     </div>
     <p class="muted a8" style="font-size:14px;margin-bottom:20px">Voting as <b id="who" style="color:#fff"></b> · <a href="#" onclick="localStorage.removeItem('nv_name');location.reload();return false">switch name</a></p>
     <div id="grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px"></div>
-    <div id="submitBar" style="position:sticky;bottom:16px;margin-top:32px;display:flex;align-items:center;gap:18px;justify-content:space-between" class="card">
-      <span id="count" class="muted" style="font-size:14px;padding-left:20px"></span>
-      <button class="btn-w" id="submitBtn" style="margin:12px" onclick="submitVotes()">Submit my votes</button>
-    </div>
-    <div id="done" style="display:none;text-align:center;padding:80px 20px">
-      <h2 style="font-size:28px;font-weight:500;margin-bottom:10px">✅ Votes submitted</h2>
-      <p class="muted">Thanks! Your ratings were recorded. <a href="results.html">See live results →</a></p>
+    <div style="display:flex;justify-content:flex-end;margin-top:28px">
+      <button class="btn-w" id="toRank" onclick="enterRanking()">Rank my top five →</button>
     </div>
   </div>
+
+  <!-- ROUND 3: rank -->
+  <div id="rank" style="display:none;max-width:520px;margin:40px auto">
+    <span class="badge a2">Round 3 of 3 · Force the order</span>
+    <h1 class="a4" style="font-size:34px;margin-bottom:10px">Rank your top five.</h1>
+    <p class="muted a6" style="font-size:14px;margin-bottom:26px">People rate generously but rank honestly. Drag into order — <b style="color:#fff">#1 is the name you'd sign the LLC paperwork for.</b></p>
+    <div id="rankList"></div>
+    <div style="margin-top:34px">
+      <h3 style="font-size:17px;font-weight:500;margin-bottom:8px">One last thing — the veto.</h3>
+      <p class="muted" style="font-size:13.5px;margin-bottom:12px;line-height:1.6">Which name would you be <b style="color:#fff">embarrassed to say out loud to a client</b>, and why?</p>
+      <textarea id="veto" placeholder="e.g. Simplex — I can't say it without thinking of herpes."></textarea>
+      <div style="display:flex;align-items:center;gap:18px;justify-content:space-between" class="card" style="padding:14px 18px">
+        <span id="count" class="muted" style="font-size:14px"></span>
+        <button class="btn-w" id="submitBtn" onclick="submitVotes()">Submit my ballot</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="done" style="display:none;text-align:center;padding:80px 20px">
+    <h2 style="font-size:28px;font-weight:500;margin-bottom:10px">✅ Ballot submitted</h2>
+    <p class="muted">Gut calls, scores, ranking, and veto recorded. Results stay blind until voting closes.</p>
+  </div>
 </div>
+
 <script>
-const votes={};
+const votes={}, guts={}, sent={};
+let rankOrder=[], voter=null, order=[], gutIdx=0;
 let curAudio=null,curBtn=null;
 function speak(btn,e){
   e.stopPropagation();
@@ -125,33 +165,69 @@ function speak(btn,e){
   curAudio.onended=()=>{btn.classList.remove('playing');curAudio=null;curBtn=null};
   curAudio.play();
 }
-try{document.getElementById('previewChips').innerHTML=NAMES.map(x=>`<span style="font-size:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;padding:3px 11px">${x.n}</span>`).join('');}catch(e){console.error(e)}
-let voter=localStorage.getItem('nv_name');
-if(voter) showApp();
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+voter=localStorage.getItem('nv_name');
+order=shuffle(NAMES.map(x=>x.id));
+if(voter) startGut();
 function enter(){
   const v=document.getElementById('vname').value.trim();
   if(!v){document.getElementById('vname').focus();return}
-  localStorage.setItem('nv_name',v); voter=v; showApp();
+  localStorage.setItem('nv_name',v); voter=v; startGut();
+}
+function startGut(){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('gut').style.display='block';
+  gutIdx=0; showGut();
+}
+function showGut(){
+  const x=NAMES.find(n=>n.id===order[gutIdx]);
+  document.getElementById('gutProg').textContent=(gutIdx+1)+' of '+NAMES.length;
+  document.getElementById('gutBtns').style.display='none';
+  const f=document.getElementById('gutFlash');
+  f.innerHTML='<div class="gutname">'+x.n+'</div>';
+  setTimeout(()=>{ if(document.getElementById('gut').style.display==='block')
+    document.getElementById('gutBtns').style.display='flex'; },2000);
+}
+function gutVote(v){
+  guts[order[gutIdx]]=v;
+  gutIdx++;
+  if(gutIdx>=order.length){
+    document.getElementById('gut').style.display='none';
+    showApp();
+  } else showGut();
 }
 function showApp(){
-  document.getElementById('gate').style.display='none';
   document.getElementById('app').style.display='block';
   document.getElementById('who').textContent=voter;
   render();
+  window.scrollTo(0,0);
+}
+function sentenceBlock(x){
+  return '<div style="margin-top:10px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.05);font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.7)">'
+    +'"I run <b style="color:#fff">'+x.n+'</b>."<br>"We hired <b style="color:#fff">'+x.n+'</b>."<br>"Built by <b style="color:#fff">'+x.n+'</b>."</div>';
 }
 function render(){
   const g=document.getElementById('grid');g.innerHTML='';
-  NAMES.forEach((x,i)=>{
+  order.forEach((id,i)=>{
+    const x=NAMES.find(n=>n.id===id);
+    const gut=guts[id];
     const c=document.createElement('div');c.className='card';
-    c.style.padding='20px 22px';c.style.animation=`fadeSlideUp .8s ease ${.15*i+0.2}s both`;
+    c.style.padding='20px 22px';c.style.animation=`fadeSlideUp .8s ease ${.12*i+0.2}s both`;
     const collWarn=/clean|minor/i.test(x.collision)?'':'color:#fbbf24';
+    const gutPill=gut?`<span class="pill" style="background:rgba(255,255,255,.1);color:${gut==='keep'?'#34d399':gut==='pass'?'#f87171':'#fbbf24'};margin-left:6px">gut: ${gut}</span>`:'';
     c.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start">
       <h3 style="font-size:19px;font-weight:600">${x.n}<button class="spk" data-audio="audio/${x.id}.mp3" title="Hear it in a sentence" onclick="speak(this,event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></button><span class="muted" style="font-weight:400;font-size:12px;font-family:ui-monospace,Menlo,monospace;margin-left:8px">${x.say}</span></h3>
       <span class="badge" style="margin:0;font-size:10.5px;padding:2px 10px">${x.cat}</span></div>
-      <div style="font-size:13.5px;color:rgba(255,255,255,.8);margin:10px 0 4px;line-height:1.5">${x.mean}</div>
-      <div style="font-size:12.5px;color:rgba(255,255,255,.5);font-style:italic">${x.promise}</div>
-      <div style="margin-top:10px"><span class="pill ${x.test.toLowerCase()}">Sentence test: ${x.test}</span>
-      <span style="font-size:11.5px;color:rgba(255,255,255,.45);${collWarn}">Collision: ${x.collision}</span></div>
+      <div style="font-style:italic;font-size:13px;color:rgba(255,255,255,.65);margin-top:8px">${x.pitch||x.promise}</div>
+      <div style="margin-top:8px;display:flex;gap:14px;align-items:baseline">
+        <span class="wm grotesk">${x.n}</span><span class="wm retro" style="font-size:16px">${x.n}</span>
+      </div>
+      ${sentenceBlock(x)}
+      <div style="margin-top:10px"><span class="pill ${x.test.toLowerCase()}">Sentence test: ${x.test}</span>${gutPill}
+      ${x.lineage&&x.lineage!=='—'?`<span class="muted" style="font-size:11px;margin-left:6px">same pattern as: ${x.lineage}</span>`:''}</div>
+      <div style="margin-top:8px;font-size:11.5px;color:rgba(255,255,255,.45);${collWarn}">Collision: ${x.collision}</div>
+      ${x.dom?`<div style="margin-top:6px;font-size:11.5px;color:rgba(255,255,255,.5)"><span class="dot ${x.dom.com}"></span>.com &nbsp;<span class="dot ${x.dom.ai}"></span>.ai &nbsp;<span class="dot ${x.dom.handle}"></span>@handle</div>`:''}
+      <details class="risks"><summary>What people might hear</summary><div style="padding-top:6px">${x.risks||'—'}</div></details>
       <div class="stars" data-id="${x.id}" style="display:flex;gap:4px;margin-top:12px">${[1,2,3,4,5].map(i=>`<button data-v="${i}" title="${i} star${i>1?'s':''}">★</button>`).join('')}</div>`;
     g.appendChild(c);
   });
@@ -167,17 +243,51 @@ function render(){
 }
 function updCount(){
   const n=Object.keys(votes).length;
-  document.getElementById('count').textContent=`${n} / ${NAMES.length} rated`;
+  document.getElementById('count').textContent=n+' / '+NAMES.length+' rated';
   document.getElementById('submitBtn').disabled=n===0;
 }
+function enterRanking(){
+  const ranked=Object.entries(votes).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  if(ranked.length<2){alert('Rate at least 2 names first.');return}
+  // if ties push past 5, fill with highest gut-rated unrated-in-top5 names
+  rankOrder=ranked.map(e=>e[0]);
+  if(rankOrder.length<5){
+    const rest=order.filter(id=>!rankOrder.includes(id)&&guts[id]==='keep');
+    for(const id of rest){ if(rankOrder.length>=5)break; rankOrder.push(id); }
+  }
+  document.getElementById('app').style.display='none';
+  document.getElementById('rank').style.display='block';
+  renderRank(); window.scrollTo(0,0);
+}
+function renderRank(){
+  const l=document.getElementById('rankList');l.innerHTML='';
+  rankOrder.forEach((id,i)=>{
+    const x=NAMES.find(n=>n.id===id);
+    const d=document.createElement('div');d.className='rankrow';d.draggable=true;d.dataset.id=id;
+    d.innerHTML=`<span class="ranknum">#${i+1}</span><span style="font-weight:600;font-size:17px">${x.n}</span><span class="muted" style="font-size:12px;margin-left:auto">${votes[id]?'★'+votes[id]:'gut keep'}</span><span class="muted" style="cursor:grab">⠿</span>`;
+    d.ondragstart=e=>{d.classList.add('dragging');e.dataTransfer.setData('text',id)};
+    d.ondragend=()=>d.classList.remove('dragging');
+    d.ondragover=e=>{e.preventDefault();
+      const drag=l.querySelector('.dragging');if(drag&&drag!==d){
+        const r=d.getBoundingClientRect();
+        l.insertBefore(drag,(e.clientY-r.top)>r.height/2?d.nextSibling:d);}};
+    d.ondrop=e=>{e.preventDefault();
+      rankOrder=[...l.children].map(c=>c.dataset.id);
+      renderRank();};
+    l.appendChild(d);
+  });
+  updCount();
+}
 async function submitVotes(){
+  const veto=document.getElementById('veto').value.trim();
+  if(!veto){document.getElementById('veto').focus();document.getElementById('veto').style.borderColor='#f87171';return}
   const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Submitting…';
   try{
     await fetch(API_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
-      body:JSON.stringify({voter:voter,votes:votes,ts:new Date().toISOString()})});
-    document.getElementById('submitBar').style.display='none';
-    document.getElementById('grid').style.display='none';
+      body:JSON.stringify({voter:voter,votes:votes,guts:guts,rank:rankOrder,veto:veto,order:order,ts:new Date().toISOString()})});
+    document.getElementById('rank').style.display='none';
     document.getElementById('done').style.display='block';
-  }catch(e){btn.disabled=false;btn.textContent='Submit my votes';alert('Submit failed — check connection and try again.');}
+    window.scrollTo(0,0);
+  }catch(e){btn.disabled=false;btn.textContent='Submit my ballot';alert('Submit failed — check connection and try again.');}
 }
 </script></body></html>

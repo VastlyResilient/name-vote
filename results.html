@@ -8,47 +8,33 @@ html,body{height:100%}
 body{font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:#000;color:#fff}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .a2{animation:fadeSlideUp .8s ease .2s both}.a4{animation:fadeSlideUp .8s ease .4s both}
-.a5{animation:fadeSlideUp .8s ease .55s both}
 .a6{animation:fadeSlideUp .8s ease .7s both}.a8{animation:fadeSlideUp .8s ease .9s both}
 .vbg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center}
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.55)}
 nav{position:relative;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:20px 24px}
 @media(min-width:768px){nav{padding:20px 48px}}
 .logo{font-size:18px;font-weight:600;letter-spacing:-.02em;color:#fff}
-@media(min-width:640px){.logo{font-size:20px}}
 .navlinks{display:none;gap:28px;margin-left:40px}
 @media(min-width:768px){.navlinks{display:flex}}
-.navlinks a{font-size:14px;color:rgba(255,255,255,.8);text-decoration:none;transition:color .2s}
-.navlinks a:hover{color:#fff}
+.navlinks a{font-size:14px;color:rgba(255,255,255,.8);text-decoration:none}
 .btn-w{display:inline-flex;align-items:center;gap:8px;border-radius:10px;background:#fff;padding:10px 22px;font-size:14px;font-weight:500;color:#000;border:none;cursor:pointer;transition:transform .2s;text-decoration:none;font-family:'Geist',sans-serif}
 .btn-w:hover{transform:scale(1.05)}
-.btn-w:disabled{opacity:.4;cursor:default;transform:none}
 .badge{display:inline-block;font-size:12px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:5px 14px;margin-bottom:18px}
-@media(min-width:640px){.badge{font-size:13.5px}}
 h1{font-size:32px;font-weight:500;line-height:1.1;letter-spacing:-.03em}
-@media(min-width:640px){h1{font-size:48px}}
-@media(min-width:768px){h1{font-size:56px}}
+@media(min-width:640px){h1{font-size:44px}}
 .muted{color:rgba(255,255,255,.6)}
-input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px}
-input::placeholder{color:rgba(255,255,255,.4)}
-input:focus{outline:none;border-color:rgba(255,255,255,.6)}
 .card{background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.14);border-radius:16px;backdrop-filter:blur(24px) saturate(1.1);-webkit-backdrop-filter:blur(24px) saturate(1.1)}
-.pill{display:inline-block;font-size:11px;font-weight:500;border-radius:99px;padding:2.5px 10px}
-.strong{background:rgba(16,185,129,.18);color:#34d399}
-.good{background:rgba(59,130,246,.18);color:#60a5fa}
-.fair{background:rgba(245,158,11,.16);color:#fbbf24}
-.weak{background:rgba(239,68,68,.18);color:#f87171}
-.stars button{font-size:24px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.22);transition:transform .1s,color .1s;padding:2px}
-.stars button:hover{transform:scale(1.15)}
-.stars button.on{color:#fbbf24}
-.stars button.hov{color:rgba(251,191,36,.6)}
-.mono{font-family:ui-monospace,Menlo,monospace;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:2px 8px;font-size:12px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.5);padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.3)}
-td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}
-a{color:#93c5fd}
 .bar{height:8px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden;flex:1}
 .bar>div{height:100%;background:#fbbf24;border-radius:99px}
+a{color:#93c5fd}
+.quad{position:relative;width:100%;aspect-ratio:1.4;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);border-radius:12px;overflow:hidden}
+.qline{position:absolute;background:rgba(255,255,255,.15)}
+.qlab{position:absolute;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.45)}
+.qdot{position:absolute;transform:translate(-50%,50%);text-align:center}
+.qdot b{display:inline-block;padding:3px 10px;border-radius:99px;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.5);color:#fbbf24;font-size:12px;white-space:nowrap}
+.qdot.tr b{background:rgba(52,211,153,.15);border-color:rgba(52,211,153,.5);color:#34d399}
+.qdot.tl b{background:rgba(248,113,113,.15);border-color:rgba(248,113,113,.5);color:#f87171}
+.qdot.br b{background:rgba(96,165,250,.15);border-color:rgba(96,165,250,.5);color:#60a5fa}
 </style></head><body>
 <video class="vbg" autoplay muted loop playsinline src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_204221_5339e40b-e73d-4ab0-9c65-79c18c66fd50.mp4"></video>
 <div class="scrim"></div>
@@ -59,19 +45,39 @@ a{color:#93c5fd}
   <a class="btn-w" href="admin.html">Admin</a>
 </nav>
 
-<div style="position:relative;z-index:10;max-width:760px;margin:0 auto;padding:32px 24px 120px">
+<div style="position:relative;z-index:10;max-width:860px;margin:0 auto;padding:32px 24px 120px">
   <div id="blind" style="max-width:480px;margin:60px auto;text-align:center" class="a4">
     <span class="badge">Blind vote in progress</span>
     <h1 style="margin:14px 0 12px">Results are hidden<br>until voting closes.</h1>
     <p class="muted" style="font-size:14px;line-height:1.7">To keep the vote unbiased, nobody can see the standings while voting is open —<br>vote on gut feel, not momentum.</p>
   </div>
   <div id="gated" style="display:none">
-  <span class="badge a2">Leaderboard</span>
-  <h1 class="a4" style="margin-bottom:8px">Live results.</h1>
-  <p class="muted a6" style="font-size:14px;margin-bottom:32px">Average star rating per name · <span id="voters"></span></p>
-  <div id="list" class="a8"><p class="muted">Loading…</p></div>
+    <span class="badge a2">Leaderboard</span>
+    <h1 class="a4" style="margin-bottom:8px">Live results.</h1>
+    <p class="muted a6" style="font-size:14px;margin-bottom:32px">Average star rating per name · <span id="voters"></span></p>
+
+    <h2 style="font-size:18px;font-weight:500;margin-bottom:12px">Gut × Considered</h2>
+    <p class="muted" style="font-size:12.5px;margin-bottom:14px">Top-right = loved instantly &amp; holds up → finalists. Bottom-right = grew on people → second round. Top-left = instant love that fell apart on reflection.</p>
+    <div class="quad a6" id="quad" style="margin-bottom:40px">
+      <div class="qline" style="left:50%;top:0;bottom:0;width:1px"></div>
+      <div class="qline" style="top:50%;left:0;right:0;height:1px"></div>
+      <span class="qlab" style="left:10px;top:8px">↑ loved, fell apart</span>
+      <span class="qlab" style="right:10px;top:8px">finalists ↑</span>
+      <span class="qlab" style="left:10px;bottom:8px">rejected</span>
+      <span class="qlab" style="right:10px;bottom:8px">grew on people ↓</span>
+    </div>
+
+    <h2 style="font-size:18px;font-weight:500;margin-bottom:12px">Star ratings</h2>
+    <div id="list" class="a8" style="margin-bottom:40px"><p class="muted">Loading…</p></div>
+
+    <h2 style="font-size:18px;font-weight:500;margin-bottom:12px">Ranking points <span class="muted" style="font-weight:400;font-size:12px">(5 pts per #1 pick … 1 per #5)</span></h2>
+    <div id="ranks" style="margin-bottom:40px"></div>
+
+    <h2 style="font-size:18px;font-weight:500;margin-bottom:12px">Veto wall <span class="muted" style="font-weight:400;font-size:12px">(embarrassed to say to a client)</span></h2>
+    <div id="vetoes"></div>
   </div>
 </div>
+<script src="data.js"></script>
 <script>
 let key=localStorage.getItem('nv_admin');
 if(!key){
@@ -83,10 +89,14 @@ fetch(API_URL+'?action=admin&key='+encodeURIComponent(key)).then(r=>r.json()).th
   document.getElementById('gated').style.display='block';
   return fetch(API_URL+'?action=results').then(r=>r.json()).then(render);
 }).catch(()=>{});
-function render(d){.then(r=>r.json()).then(d=>{
+
+function render(d){
   const list=document.getElementById('list');
   if(!d.ok){list.innerHTML='<p style="color:#f87171">'+(d.error||'Failed to load results')+'</p>';return}
   document.getElementById('voters').textContent=d.voterCount+' voter'+(d.voterCount==1?'':'s');
+  const bal=d.ballots||{guts:{},rankPts:{},vetoes:[]};
+
+  // leaderboard
   const rows=d.scores.map(s=>{const m=NAMES.find(x=>x.id===s.id)||{n:s.id};return{n:m.n,avg:s.avg,count:s.count}})
     .sort((a,b)=>b.avg-a.avg);
   list.innerHTML=rows.map((r,i)=>`<div class="card" style="padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px">
@@ -95,7 +105,40 @@ function render(d){.then(r=>r.json()).then(d=>{
     <div class="bar"><div style="width:${(r.avg/5*100).toFixed(0)}%"></div></div>
     <span style="font-weight:600;width:48px;text-align:right">${r.avg?r.avg.toFixed(1):'—'}</span>
     <span class="muted" style="font-size:12px;width:66px;text-align:right">${r.count} vote${r.count==1?'':'s'}</span></div>`).join('');
+
+  // quadrant: x = gut score (% keep - % pass, mapped 0..1), y = considered avg (0..5 → 0..1)
+  const quad=document.getElementById('quad');
+  quad.querySelectorAll('.qdot').forEach(e=>e.remove());
+  NAMES.forEach(x=>{
+    const g=bal.guts[x.id]||{keep:0,maybe:0,pass:0};
+    const tot=g.keep+g.maybe+g.pass;
+    const gut=tot?((g.keep-g.pass)/tot+1)/2:null; // 0..1
+    const sc=d.scores.find(s=>s.id===x.id);
+    const cons=sc&&sc.avg?sc.avg/5:null;
+    if(gut===null&&cons===null) return;
+    const px=(gut!==null?gut:0.5)*100, py=(cons!==null?cons:0.5)*100;
+    const cls=(py>=50? (px>=50?'tr':'tl') : (px>=50?'br':''));
+    const dot=document.createElement('div');
+    dot.className='qdot '+cls;
+    dot.style.left=px+'%'; dot.style.bottom=py+'%';
+    dot.innerHTML='<b>'+x.n+'</b>';
+    quad.appendChild(dot);
+  });
+
+  // ranking points
+  const rp=Object.entries(bal.rankPts||{}).sort((a,b)=>b[1]-a[1]);
+  const maxRp=rp.length?rp[0][1]:1;
+  document.getElementById('ranks').innerHTML=rp.length?rp.map(([id,p])=>{
+    const m=NAMES.find(x=>x.id===id)||{n:id};
+    return `<div class="card" style="padding:12px 18px;margin-bottom:8px;display:flex;align-items:center;gap:14px">
+      <span style="font-weight:600;width:120px">${m.n}</span>
+      <div class="bar"><div style="width:${(p/maxRp*100).toFixed(0)}%;background:#34d399"></div></div>
+      <span style="font-weight:600;width:40px;text-align:right">${p}</span></div>`;
+  }).join(''):'<p class="muted">No rankings yet.</p>';
+
+  // vetoes
+  document.getElementById('vetoes').innerHTML=(bal.vetoes&&bal.vetoes.length)?bal.vetoes.map(v=>
+    `<div class="card" style="padding:14px 18px;margin-bottom:8px"><b style="font-size:13px">${v.voter}</b><p style="font-size:13.5px;color:rgba(255,255,255,.75);margin-top:4px;line-height:1.6">${v.text.replace(/</g,'&lt;')}</p></div>`
+  ).join(''):'<p class="muted">No vetoes yet.</p>';
 }
-function fail(){const l=document.getElementById('list');if(l)l.innerHTML='<p style="color:#f87171">Could not load results.</p>';}
 </script></body></html>
-<script src="data.js"></script>
