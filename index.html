@@ -65,6 +65,8 @@ a{color:#93c5fd}
       <span class="badge">Twelve candidates · one winner</span>
       <h2 style="font-size:24px;font-weight:500;margin-bottom:10px">Cast your vote</h2>
       <p class="muted" style="font-size:14px;margin-bottom:22px">Enter your name to vote. Ratings are logged under your name — one ballot per person, re-voting updates it.</p>
+      <div style="margin-bottom:18px"><p class="muted" style="font-size:12px;margin-bottom:8px">You'll be rating all 12 names:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px" id="previewChips"></div></div>
       <input id="vname" type="text" placeholder="Your name" autocomplete="name" onkeydown="if(event.key==='Enter')enter()">
       <button class="btn-w" style="width:100%;justify-content:center" onclick="enter()">Start voting →</button>
     </div>
@@ -107,6 +109,7 @@ a{color:#93c5fd}
 </div>
 <script>
 const votes={};
+document.getElementById('previewChips').innerHTML=NAMES.map(x=>`<span style="font-size:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;padding:3px 11px">${x.n}</span>`).join('');
 let voter=localStorage.getItem('nv_name');
 if(voter) showApp();
 function enter(){
