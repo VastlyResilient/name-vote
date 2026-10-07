@@ -39,6 +39,9 @@ input:focus{outline:none;border-color:#2563eb}
 #done h2{font-size:26px;margin-bottom:10px}
 #done p{color:#6b7280}
 a{color:#2563eb}
+.guide strong{color:#111}
+.steps{margin:10px 0 10px 20px;font-size:13px;color:#374151;line-height:1.7}
+.guide-legend{margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb;font-size:12px;color:#6b7280;line-height:2}
 .hiddencat{display:none}
 footer{margin-top:40px;text-align:center;font-size:12px;color:#9ca3af}
 </style></head><body>
@@ -54,7 +57,24 @@ footer{margin-top:40px;text-align:center;font-size:12px;color:#9ca3af}
     <h1>Company Name Shortlist</h1>
     <div class="sub">Twelve candidates across three naming strategies. Rate each 1–5 stars. Voting as <b id="who"></b> · <a href="#" onclick="localStorage.clear();location.reload();return false">switch name</a></div>
   </header>
-  <div class="test"><strong>Sentence test</strong> — say each name aloud in all three frames: <span class="mono">"I run ___."</span><span class="mono">"We hired ___."</span><span class="mono">"Built by ___."</span></div>
+  <div class="test guide">
+    <strong>How to vote</strong>
+    <ol class="steps">
+      <li><strong>Read each card</strong> — meaning, brand promise, and any name collisions.</li>
+      <li><strong>Do the sentence test</strong> — say the name aloud in all three frames:
+        <div style="margin-top:6px"><span class="mono">"I run ___."</span><span class="mono">"We hired ___."</span><span class="mono">"Built by ___."</span></div></li>
+      <li><strong>Rate 1–5 stars</strong> (5 = best). Vote on gut feel — don't overthink it.</li>
+      <li><strong>Changed your mind?</strong> Click a different star to change a rating, or click the same star again to remove it.</li>
+      <li><strong>Submit at the bottom.</strong> You can skip names you have no opinion on. One ballot per person — voting again later updates your ratings.</li>
+    </ol>
+    <div class="guide-legend">
+      <span class="pill strong">Strong</span> passes the sentence test ·
+      <span class="pill good">Good</span> mostly passes ·
+      <span class="pill fair">Fair</span> mixed ·
+      <span class="pill weak">Weak</span> fails ·
+      <span style="color:#b45309">amber collision</span> = existing company conflict
+    </div>
+  </div>
   <div class="grid" id="grid"></div>
   <div id="submitBar"><div class="in">
     <span id="count"></span>
@@ -92,8 +112,10 @@ function render(){
     g.appendChild(c);
   });
   g.querySelectorAll('.stars button').forEach(b=>{
-    b.onclick=()=>{const s=b.parentElement;const id=s.dataset.id;const v=+b.dataset.v;votes[id]=v;
-      s.querySelectorAll('button').forEach(x=>x.classList.toggle('on',+x.dataset.v<=v));updCount();};
+    b.onclick=()=>{const s=b.parentElement;const id=s.dataset.id;const v=+b.dataset.v;
+      if(votes[id]===v){delete votes[id];s.querySelectorAll('button').forEach(x=>x.classList.remove('on'));}
+      else{votes[id]=v;s.querySelectorAll('button').forEach(x=>x.classList.toggle('on',+x.dataset.v<=v));}
+      updCount();};
     b.onmouseenter=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.classList.toggle('hov',+x.dataset.v<=+b.dataset.v));};
     b.onmouseleave=()=>{b.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('hov'));};
   });
