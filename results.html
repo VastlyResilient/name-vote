@@ -54,14 +54,82 @@ a{color:#93c5fd}
     <p class="muted" style="font-size:14px;line-height:1.7;max-width:380px;margin:0 auto">So nobody anchors on anyone else's picks — vote on what fits, not momentum.</p>
   </div>
   <div id="gated" style="display:none">
-    <span class="badge a2">Leaderboard</span>
-    <h1 class="a4" style="margin-bottom:10px">Live results.</h1>
-    <p class="muted a6" style="font-size:14px;margin-bottom:10px">Average star rating per name · <span id="voters"></span></p>
-    <div id="legend" style="margin-bottom:24px"></div>
-    <div id="list" class="a8"></div>
+    <span class="badge a2">Live standings</span>
+    <h1 class="a4" style="margin-bottom:10px">Results.</h1>
+    <p class="muted a6" style="font-size:14px;margin-bottom:28px"><span id="voters"></span> · scores out of 5</p>
+
+    <h2 style="font-size:16px;font-weight:600;margin-bottom:14px">Average across all voters</h2>
+    <div id="board" style="margin-bottom:44px"></div>
+
+    <h2 style="font-size:16px;font-weight:600;margin-bottom:14px">What each person voted</h2>
+    <div id="perVoter"></div>
   </div>
 </div>
 <script src="data.js?v=5"></script>
+<script>
+let key=localStorage.getItem('nv_admin');
+if(!key){
+  key=prompt('Results are hidden while voting is open. Admin key to preview:');
+  if(!key) throw 0;
+}
+fetch('https://name-vote-api-production.up.railway.app/?action=admin&key='+encodeURIComponent(key))
+.then(r=>r.json()).then(d=>{
+  if(!d.ok){document.getElementById('blind').innerHTML='<p style="color:#f87171;padding:20px">Invalid admin key.</p>';return}
+  document.getElementById('gated').style.display='block';
+  fetch('https://name-vote-api-production.up.railway.app/?action=results').then(r=>r.json()).then(render);
+}).catch(()=>{});
+const BC=['#fbbf24','#38bdf8','#34d399','#f472b6','#a78bfa','#fb923c'];
+function nameOf(id){const m=NAMES.find(x=>x.id===id);return m?m.n:id;}
+function stars(n){return '★'.repeat(n)+'<span style="opacity:.25">'+'★'.repeat(5-n)+'</span>';}
+function render(d){
+  const pv=d.perVoter||{};
+  const voters=Object.keys(pv);
+  document.getElementById('voters').textContent=d.voterCount+' voter'+(d.voterCount==1?'':'s')+' so far';
+  if(!voters.length){document.getElementById('board').innerHTML='<p class="muted">No votes yet.</p>';return}
+
+  // ---- overall board: avg + each voter's score in a row ----
+  const rows=NAMES.map(x=>{
+    const got=voters.map((v,vi)=>({vi,r:pv[v].ratings[x.id]})).filter(p=>p.r);
+    if(!got.length)return null;
+    return {id:x.id,n:x.n,avg:got.reduce((a,p)=>a+p.r,0)/got.length,got};
+  }).filter(Boolean).sort((a,b)=>b.avg-a.avg);
+  const maxAvg=5;
+  document.getElementById('board').innerHTML=rows.map((r,i)=>`
+    <div class="card" style="padding:14px 18px;margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="font-weight:600;color:rgba(255,255,255,.35);width:22px">${i+1}</span>
+        <span style="font-weight:600;width:110px">${r.n}</span>
+        <div style="flex:1;height:8px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden">
+          <div style="height:100%;width:${(r.avg/maxAvg*100).toFixed(0)}%;background:#fbbf24;border-radius:99px"></div>
+        </div>
+        <b style="width:38px;text-align:right">${r.avg.toFixed(1)}</b>
+      </div>
+      <div style="margin:8px 0 0 36px;font-size:12.5px;color:rgba(255,255,255,.65)">
+        ${r.got.map(p=>`<span style="margin-right:16px;white-space:nowrap"><i style="width:8px;height:8px;border-radius:99px;background:${BC[p.vi%6]};display:inline-block;margin-right:5px"></i>${voters[p.vi]}: <b style="color:#fff">${p.r}</b></span>`).join('')}
+      </div>
+    </div>`).join('');
+
+  // ---- per voter sections ----
+  document.getElementById('perVoter').innerHTML=voters.map((v,vi)=>{
+    const entries=Object.entries(pv[v].ratings).sort((a,b)=>b[1]-a[1]);
+    const when=pv[v].latest?new Date(pv[v].latest).toLocaleString():'';
+    return `<div class="card" style="padding:20px 22px;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+        <i style="width:10px;height:10px;border-radius:99px;background:${BC[vi%6]};display:inline-block"></i>
+        <b style="font-size:16px">${v}</b>
+        <span class="muted" style="font-size:12px;margin-left:auto">${entries.length} of ${NAMES.length} rated · ${when}</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;margin-top:8px">
+        ${entries.map(([id,r])=>`<tr>
+          <td style="padding:7px 0;font-size:14px;width:130px">${nameOf(id)}</td>
+          <td style="padding:7px 0;color:#fbbf24;font-size:13px">${stars(r)}</td>
+          <td style="padding:7px 0;text-align:right;font-size:13px;color:rgba(255,255,255,.6)">${r} / 5</td>
+        </tr>`).join('')}
+      </table>
+    </div>`;
+  }).join('');
+}
+</script>
 <script>
 let key=localStorage.getItem('nv_admin');
 if(!key){
