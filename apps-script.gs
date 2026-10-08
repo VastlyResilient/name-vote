@@ -54,6 +54,20 @@ function doPost(e){
 
 function doGet(e){
   const action=(e.parameter.action||'results');
+
+  // wipe all logged submissions (votes, ballots, feedback). Headers kept.
+  if(action==='reset'){
+    if((e.parameter.key||'')!==ADMIN_KEY) return out({ok:false,error:'Invalid admin key'});
+    const cleared=[];
+    for(const name of ['votes','ballots','feedback']){
+      const s=sheet(name, name==='votes'?['ts','voter','name','rating']:name==='ballots'?['ts','voter','guts','rank','veto','order']:['ts','voter','feedback']);
+      const n=s.getLastRow();
+      if(n>1){ s.deleteRows(2, n-1); }
+      cleared.push(name+': '+(n>1?n-1:0)+' rows removed');
+    }
+    return out({ok:true, cleared});
+  }
+
   const s = sheet('votes', ['ts','voter','name','rating']);
   const rows = s.getDataRange().getValues().slice(1);
   const byName={}, voters=new Set();
