@@ -8,47 +8,32 @@ html,body{height:100%}
 body{font-family:'Geist',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:#000;color:#fff}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .a2{animation:fadeSlideUp .8s ease .2s both}.a4{animation:fadeSlideUp .8s ease .4s both}
-.a5{animation:fadeSlideUp .8s ease .55s both}
 .a6{animation:fadeSlideUp .8s ease .7s both}.a8{animation:fadeSlideUp .8s ease .9s both}
 .vbg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center}
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.55)}
 nav{position:relative;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:20px 24px}
 @media(min-width:768px){nav{padding:20px 48px}}
-.logo{font-size:18px;font-weight:600;letter-spacing:-.02em;color:#fff}
-@media(min-width:640px){.logo{font-size:20px}}
+.logo{font-size:18px;font-weight:600;letter-spacing:-.02em}
 .navlinks{display:none;gap:28px;margin-left:40px}
 @media(min-width:768px){.navlinks{display:flex}}
-.navlinks a{font-size:14px;color:rgba(255,255,255,.8);text-decoration:none;transition:color .2s}
+.navlinks a{font-size:14px;color:rgba(255,255,255,.8);text-decoration:none}
 .navlinks a:hover{color:#fff}
-.btn-w{display:inline-flex;align-items:center;gap:8px;border-radius:10px;background:#fff;padding:10px 22px;font-size:14px;font-weight:500;color:#000;border:none;cursor:pointer;transition:transform .2s;text-decoration:none;font-family:'Geist',sans-serif}
+.btn-w{display:inline-flex;align-items:center;gap:8px;border-radius:10px;background:#fff;padding:10px 22px;font-size:14px;font-weight:500;color:#000;border:none;cursor:pointer;transition:transform .2s;font-family:'Geist',sans-serif;text-decoration:none}
 .btn-w:hover{transform:scale(1.05)}
-.btn-w:disabled{opacity:.4;cursor:default;transform:none}
 .badge{display:inline-block;font-size:12px;color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:5px 14px;margin-bottom:18px}
-@media(min-width:640px){.badge{font-size:13.5px}}
 h1{font-size:32px;font-weight:500;line-height:1.1;letter-spacing:-.03em}
-@media(min-width:640px){h1{font-size:48px}}
-@media(min-width:768px){h1{font-size:56px}}
+@media(min-width:640px){h1{font-size:44px}}
 .muted{color:rgba(255,255,255,.6)}
-input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px}
+.card{background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.14);border-radius:16px;backdrop-filter:blur(24px) saturate(1.1);-webkit-backdrop-filter:blur(24px) saturate(1.1)}
+input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px}
 input::placeholder{color:rgba(255,255,255,.4)}
 input:focus{outline:none;border-color:rgba(255,255,255,.6)}
-.card{background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.14);border-radius:16px;backdrop-filter:blur(24px) saturate(1.1);-webkit-backdrop-filter:blur(24px) saturate(1.1)}
-.pill{display:inline-block;font-size:11px;font-weight:500;border-radius:99px;padding:2.5px 10px}
-.strong{background:rgba(16,185,129,.18);color:#34d399}
-.good{background:rgba(59,130,246,.18);color:#60a5fa}
-.fair{background:rgba(245,158,11,.16);color:#fbbf24}
-.weak{background:rgba(239,68,68,.18);color:#f87171}
-.stars button{font-size:24px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.22);transition:transform .1s,color .1s;padding:2px}
-.stars button:hover{transform:scale(1.15)}
-.stars button.on{color:#fbbf24}
-.stars button.hov{color:rgba(251,191,36,.6)}
-.mono{font-family:ui-monospace,Menlo,monospace;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:2px 8px;font-size:12px}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden;flex:1}
+.bar>div{height:100%;background:#fbbf24;border-radius:99px;transition:width .6s ease}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.5);padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.3)}
 td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}
 a{color:#93c5fd}
-.bar{height:8px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden;flex:1}
-.bar>div{height:100%;background:#fbbf24;border-radius:99px}
 </style></head><body>
 <video class="vbg" autoplay muted loop playsinline src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_204221_5339e40b-e73d-4ab0-9c65-79c18c66fd50.mp4"></video>
 <div class="scrim"></div>
@@ -59,7 +44,7 @@ a{color:#93c5fd}
   <a class="btn-w" href="admin.html">Admin</a>
 </nav>
 
-<div style="position:relative;z-index:10;max-width:960px;margin:0 auto;padding:32px 24px 120px">
+<div style="position:relative;z-index:10;max-width:900px;margin:0 auto;padding:32px 24px 100px">
   <div id="login" class="card" style="max-width:400px;margin:60px auto;padding:34px">
     <span class="badge">Admin</span>
     <h2 style="font-size:22px;font-weight:500;margin-bottom:18px">Sign in</h2>
@@ -70,19 +55,23 @@ a{color:#93c5fd}
   <div id="panel" style="display:none">
     <span class="badge a2">Admin</span>
     <h1 class="a4" style="margin-bottom:8px">Ballot log.</h1>
-    <p class="muted a6" style="font-size:14px;margin-bottom:24px"><a href="results.html">Public results</a> · <a href="#" onclick="localStorage.removeItem('nv_admin');location.reload();return false">Sign out</a></p>
-    <div id="sum" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px"></div>
+    <p class="muted a6" style="font-size:14px;margin-bottom:24px">
+      <a href="results.html">Public results</a> &nbsp;·&nbsp;
+      <a href="#" onclick="localStorage.removeItem('nv_admin');location.reload();return false">Sign out</a>
+    </p>
+    <div id="sum" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px"></div>
     <div class="card" style="overflow:auto"><table id="tbl" style="min-width:560px"></table></div>
   </div>
 </div>
 <script>
+var API_URL='https://name-vote-api-production.up.railway.app';
 let key=localStorage.getItem('nv_admin');
 if(key){document.getElementById('login').style.display='none';load();}
 function login(){const k=document.getElementById('key').value.trim();if(!k)return;
  key=k;localStorage.setItem('nv_admin',k);document.getElementById('login').style.display='none';load();}
 function load(){
  document.getElementById('panel').style.display='block';
- fetch(API_URL+'?action=admin&key='+encodeURIComponent(key)).then(r=>r.json()).then(d=>{
+ fetch(API_URL+'/?action=admin&key='+encodeURIComponent(key)).then(r=>r.json()).then(d=>{
    if(!d.ok){localStorage.removeItem('nv_admin');document.getElementById('panel').style.display='none';
      document.getElementById('login').style.display='block';
      document.getElementById('lerr').textContent=d.error||'Wrong key';return}
@@ -90,9 +79,8 @@ function load(){
      `<div class="card" style="padding:12px 20px"><b style="font-size:20px;display:block">${d.voterCount}</b><span class="muted" style="font-size:12px">voters</span></div>`+
      `<div class="card" style="padding:12px 20px"><b style="font-size:20px;display:block">${d.totalRatings}</b><span class="muted" style="font-size:12px">ratings</span></div>`+
      `<div class="card" style="padding:12px 20px;flex:1;min-width:180px"><b style="font-size:20px;display:block">${d.topName||'—'}</b><span class="muted" style="font-size:12px">current leader</span></div>`;
-   document.getElementById('tbl').innerHTML='<tr><th>Voter</th><th>Name</th><th>Rating</th><th>Time</th></tr>'+
-     d.rows.map(r=>`<tr><td>${r.voter}</td><td>${r.name}</td><td style="color:#fbbf24">${'★'.repeat(r.rating)}</td><td class="muted">${new Date(r.ts).toLocaleString()}</td></tr>`).join('');
+   document.getElementById('tbl').innerHTML=`<tr><th>Timestamp</th><th>Voter</th><th>Name</th><th>Rating</th></tr>`+
+     d.rows.map(r=>`<tr><td class="muted" style="font-size:11px">${new Date(r.ts).toLocaleString()}</td><td>${r.voter}</td><td style="font-weight:600">${r.name}</td><td style="color:#fbbf24">${'★'.repeat(r.rating)}</td></tr>`).join('');
  });
 }
 </script></body></html>
-<script src="data.js"></script>
