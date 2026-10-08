@@ -100,9 +100,9 @@ app.get('/', (req, res) => {
     const fb = db.prepare('SELECT ts,voter,feedback FROM feedback ORDER BY id DESC').all();
     return res.json({ ok: true, voterCount: s.voterCount, totalRatings: s.votes.length, topName: top,
       rows: s.votes.map(r => ({ ts: r.ts, voter: r.voter, name: r.name, rating: r.rating })).reverse(),
-      ballots: s.ballots, feedback: fb });
+      perVoter: s.perVoter, ballots: s.ballots, feedback: fb });
   }
-  res.json({ ok: true, voterCount: s.voterCount, scores: s.scores, ballots: s.ballots });
+  res.json({ ok: true, voterCount: s.voterCount, scores: s.scores, perVoter: s.perVoter, ballots: s.ballots });
 });
 
 app.get('/health', (req, res) => res.json({ ok: true }));
