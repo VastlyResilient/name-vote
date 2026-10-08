@@ -29,9 +29,10 @@ nav{position:relative;z-index:30;display:flex;justify-content:space-between;alig
 h1{font-size:32px;font-weight:500;line-height:1.1;letter-spacing:-.03em}
 @media(min-width:640px){h1{font-size:48px}}
 .muted{color:rgba(255,255,255,.6)}
-input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px}
-input::placeholder{color:rgba(255,255,255,.4)}
-input:focus{outline:none;border-color:rgba(255,255,255,.6)}
+input,textarea{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px}
+textarea{min-height:88px;resize:vertical;line-height:1.6}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.4)}
+input:focus,textarea:focus{outline:none;border-color:rgba(255,255,255,.6)}
 .card{background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.14);border-radius:16px;backdrop-filter:blur(24px) saturate(1.1);-webkit-backdrop-filter:blur(24px) saturate(1.1)}
 .pill{display:inline-block;font-size:11px;font-weight:500;border-radius:99px;padding:2.5px 10px}
 .strong{background:rgba(16,185,129,.18);color:#34d399}.good{background:rgba(59,130,246,.18);color:#60a5fa}
@@ -153,7 +154,7 @@ footer{text-align:center;font-size:12px;color:rgba(255,255,255,.35);margin-top:3
       <h3 style="font-size:26px;font-weight:500;letter-spacing:-.02em;margin-bottom:12px">What did the stars miss?</h3>
       <p class="muted" style="font-size:14.5px;line-height:1.75;margin-bottom:22px;max-width:520px">Ratings say <b style="color:#fff">which</b> names land — not <b style="color:#fff">why</b>. If a name worried you, reminded you of something, or felt perfect for a reason the card didn't mention, this is the place. Every word gets read.</p>
       <div class="card" style="padding:26px 28px">
-        <textarea id="feedback" placeholder="e.g. Triolution sounds strong, but I keep wanting to spell it Tryolution — if we pick it, we need the misspellings parked…" style="min-height:150px;font-size:15px;line-height:1.7"></textarea>
+        <textarea id="feedback" placeholder="e.g. If we'd been named Versance, I'd worry people hear 'versace' — if a name has a mishearing like that, we need the misspellings parked…" style="min-height:150px;font-size:15px;line-height:1.7"></textarea>
         <button class="btn-w" id="fbBtn" style="width:100%;justify-content:center;padding:14px 22px;font-size:15px" onclick="submitFeedback()">Send feedback</button>
       </div>
     </div>
