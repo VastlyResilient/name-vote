@@ -8,7 +8,9 @@ const ADMIN_KEY = process.env.ADMIN_KEY || 'change-me';
 const PORT = process.env.PORT || 8787;
 const db = new Database(process.env.DB_PATH || path.join(__dirname, 'votes.db'));
 
-db.exec(`CREATE TABLE IF NOT EXISTS votes(
+db.exec(`CREATE TABLE IF NOT EXISTS tokens(
+  voter TEXT PRIMARY KEY, token TEXT, created TEXT);
+CREATE TABLE IF NOT EXISTS votes(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   ts TEXT, voter TEXT, name TEXT, rating INTEGER,
   UNIQUE(voter, name) ON CONFLICT REPLACE);
@@ -26,9 +28,19 @@ const parseBody = (req) => { try { return JSON.parse(req.body || '{}'); } catch 
 app.post('/', (req, res) => {
   const d = parseBody(req);
   const voter = String(d.voter || '').trim();
-  if (!voter) return res.json({ ok: false, error: 'name required' });
+  // enforce real names: 2+ chars, letters/numbers/spaces only
+  if (voter.length < 2 || !/[\p{L}\p{N}]/u.test(voter) || /^[\W_]+$/.test(voter))
+    return res.status(400).json({ ok: false, error: 'Please enter your real name (letters, 2+ characters).' });
+  const token = String(d.token || '');
+  if (!token || token.length < 16)
+    return res.status(400).json({ ok: false, error: 'missing session token' });
+  // name-claim enforcement: first claim wins; same token = update allowed
+  const claim = db.prepare('SELECT token FROM tokens WHERE lower(voter)=lower(?)').get(voter);
+  if (claim && claim.token !== token)
+    return res.status(409).json({ ok: false, error: 'That name is already taken. If this is you, use the same device you voted on, or pick a different name.' });
+  if (!claim)
+    db.prepare('INSERT INTO tokens(voter,token,created) VALUES(?,?,?)').run(voter, token, new Date().toISOString());
   const now = new Date().toISOString();
-
   if (d.votes && typeof d.votes === 'object') {
     const ins = db.prepare(`INSERT INTO votes(ts,voter,name,rating) VALUES(?,?,?,?)
       ON CONFLICT(voter,name) DO UPDATE SET ts=excluded.ts, rating=excluded.rating`);

@@ -104,7 +104,8 @@ footer{text-align:center;font-size:12px;color:rgba(255,255,255,.35);margin-top:3
       <span class="badge">SEOLUTION rebrand · twelve candidates</span>
       <h2 style="font-size:24px;font-weight:500;margin-bottom:10px">Cast your vote</h2>
       <p class="muted" style="font-size:14px;margin-bottom:22px">Enter your name to vote. One ballot per person — re-voting updates it.</p>
-      <input id="vname" type="text" placeholder="Your name" autocomplete="name" onkeydown="if(event.key==='Enter')enter()">
+      <input id="vname" type="text" placeholder="Your real name" autocomplete="name" onkeydown="if(event.key==='Enter')enter()">
+      <div id="nameErr" style="color:#f87171;font-size:12.5px;margin:-6px 0 12px;min-height:16px"></div>
       <button class="btn-w" style="width:100%;justify-content:center" onclick="enter()">Start voting →</button>
     </div>
   </div>
@@ -168,8 +169,13 @@ footer{text-align:center;font-size:12px;color:rgba(255,255,255,.35);margin-top:3
 <script>
 const votes={};
 let voter=localStorage.getItem('nv_name');
+let sessionToken=localStorage.getItem('nv_token');
+if(!sessionToken){sessionToken=crypto.randomUUID();localStorage.setItem('nv_token',sessionToken);}
 let cur=0, order=[];
-function enter(){const v=document.getElementById('vname').value.trim();if(!v)return document.getElementById('vname').focus();
+function enter(){const v=document.getElementById('vname').value.trim();
+ const err=document.getElementById('nameErr');
+ if(v.length<2||!/[\p{L}\p{N}]/u.test(v)||/^[\W_]+$/.test(v)){err.textContent='Please enter your real name (letters, 2+ characters).';return document.getElementById('vname').focus();}
+ err.textContent='';
  localStorage.setItem('nv_name',v);voter=v;showApp();}
 function showApp(){
   document.getElementById('gate').style.display='none';
@@ -271,8 +277,10 @@ function speak(btn,e){
 async function submitVotes(){
   const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Submitting…';
   try{
-    await fetch(API_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
-      body:JSON.stringify({voter:voter,votes:votes,ts:new Date().toISOString()})});
+    const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({voter:voter,votes:votes,token:sessionToken,ts:new Date().toISOString()})});
+    const body=await res.json().catch(()=>({ok:res.ok}));
+    if(!res.ok||!body.ok){btn.disabled=false;btn.textContent='Submit my votes';alert(body.error||'Submit failed — try again.');return}
     document.getElementById('cards').style.display='none';
     document.getElementById('dots').style.display='none';
     document.querySelector('.navRow').style.display='none';
