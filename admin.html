@@ -24,6 +24,8 @@ nav{position:relative;z-index:30;display:flex;justify-content:space-between;alig
 h1{font-size:32px;font-weight:500;line-height:1.1;letter-spacing:-.03em}
 @media(min-width:640px){h1{font-size:44px}}
 .muted{color:rgba(255,255,255,.6)}
+.btn-danger{display:inline-flex;align-items:center;gap:8px;border-radius:10px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);padding:10px 20px;font-size:13.5px;font-weight:500;color:#f87171;cursor:pointer;font-family:'Geist',sans-serif}
+.btn-danger:hover{background:rgba(239,68,68,.25)}
 .card{background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.14);border-radius:16px;backdrop-filter:blur(24px) saturate(1.1);-webkit-backdrop-filter:blur(24px) saturate(1.1)}
 input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font-size:15px;font-family:'Geist',sans-serif;margin-bottom:14px}
 input::placeholder{color:rgba(255,255,255,.4)}
@@ -58,6 +60,7 @@ a{color:#93c5fd}
     <p class="muted a6" style="font-size:14px;margin-bottom:24px">
       <a href="results.html">Public results</a> &nbsp;·&nbsp;
       <a href="#" onclick="localStorage.removeItem('nv_admin');location.reload();return false">Sign out</a>
+      <button class="btn-danger" style="float:right" onclick="clearVotes()">Clear all votes</button>
     </p>
     <div id="sum" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px"></div>
     <div class="card" style="overflow:auto"><table id="tbl" style="min-width:560px"></table></div>
@@ -69,6 +72,14 @@ let key=localStorage.getItem('nv_admin');
 if(key){document.getElementById('login').style.display='none';load();}
 function login(){const k=document.getElementById('key').value.trim();if(!k)return;
  key=k;localStorage.setItem('nv_admin',k);document.getElementById('login').style.display='none';load();}
+function clearVotes(){
+ if(!confirm('Clear ALL votes? This deletes every ballot permanently.'))return;
+ if(!confirm('Really? There is no undo.'))return;
+ fetch(API_URL+'/?action=reset&key='+encodeURIComponent(key)).then(r=>r.json()).then(d=>{
+   if(d.ok){alert('Cleared: '+d.cleared.join(', '));load();}
+   else alert('Failed: '+(d.error||'unknown'));
+ });
+}
 function load(){
  document.getElementById('panel').style.display='block';
  fetch(API_URL+'/?action=admin&key='+encodeURIComponent(key)).then(r=>r.json()).then(d=>{
