@@ -73,7 +73,9 @@ function summary() {
     try { JSON.parse(b.rank || '[]').forEach((id, i) => { rankPts[id] = (rankPts[id] || 0) + (5 - i); }); } catch {}
     if (b.veto) vetoes.push({ voter: b.voter, text: b.veto });
   });
-  return { voterCount: voters.size, scores, votes, ballots: { guts, rankPts, vetoes, ballotCount: ballots.length } };
+  const perVoter = {};
+  votes.forEach(v => { (perVoter[v.voter] = perVoter[v.voter] || { ratings: {}, latest: '' }); perVoter[v.voter].ratings[v.name] = v.rating; if (v.ts > perVoter[v.voter].latest) perVoter[v.voter].latest = v.ts; });
+  return { voterCount: voters.size, scores, votes, perVoter, ballots: { guts, rankPts, vetoes, ballotCount: ballots.length } };
 }
 
 app.get('/', (req, res) => {
