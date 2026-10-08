@@ -80,7 +80,7 @@ fetch('https://name-vote-api-production.up.railway.app/?action=admin&key='+encod
 }).catch(()=>{});
 const BC=['#fbbf24','#38bdf8','#34d399','#f472b6','#a78bfa','#fb923c'];
 function nameOf(id){const m=NAMES.find(x=>x.id===id);return m?m.n:id;}
-function stars(n){return '★'.repeat(n)+'<span style="opacity:.25">'+'★'.repeat(5-n)+'</span>';}
+function stars(n){const f='★'.repeat(n),e='☆'.repeat(5-n);return f+'<span style="opacity:.3">'+e+'</span>';}
 function render(d){
   const pv=d.perVoter||{};
   const voters=Object.keys(pv);
