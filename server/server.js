@@ -73,6 +73,11 @@ app.get('/', (req, res) => {
     const f = db.prepare('DELETE FROM feedback').run().changes;
     return res.json({ ok: true, cleared: [`votes: ${v}`, `ballots: ${b}`, `feedback: ${f}`] });
   }
+  if (action === 'dump') {
+    if (req.query.key !== ADMIN_KEY) return res.json({ ok: false, error: 'Invalid admin key' });
+    return res.json({ ok: true, votes: db.prepare('SELECT * FROM votes ORDER BY id').all(),
+      ballots: db.prepare('SELECT * FROM ballots').all(), feedback: db.prepare('SELECT * FROM feedback').all() });
+  }
   const s = summary();
   if (action === 'admin') {
     if (req.query.key !== ADMIN_KEY) return res.json({ ok: false, error: 'Invalid admin key' });
